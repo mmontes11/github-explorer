@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import githubClient from "./githubClient";
+import { useOrganization } from "./organization";
 import './App.css';
 
 const App = () => {
-  const [orgInput, setOrgInput] = useState('');
-  const [orgResult, setOrgResult] = useState(null);
-  const [orgError, setOrgError] = useState(null); 
+  const [
+    { input: orgInput, result: orgResult, error: orgError },
+    setOrgInput,
+    setOrgResult,
+    setOrgError  
+  ] = useOrganization();
   const onChange = ({ target: { value }}) => {
     setOrgInput(value);
   };

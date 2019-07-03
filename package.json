@@ -7,9 +7,10 @@
     "url": "git+https://github.com/mmontes11/github-explorer.git"
   },
   "keywords": [
-    "react",
-    "graphql",
     "github",
+    "react",
+    "react-hooks",
+    "graphql",
     "apollo"
   ],
   "author": "Martin Montes",
