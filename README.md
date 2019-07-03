@@ -1,2 +1,2 @@
 # github-explorer
-React UI for exploring GitHub repos using Apollo GraphQL
+React UI for exploring GitHub using Apollo GraphQL
