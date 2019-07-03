@@ -5,6 +5,7 @@ class GitHubClient {
     this.url = "https://api.github.com/graphql";
     this.authorization = `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`;
   }
+
   getOrganization(organization) {
     const GET_ORGANIZATION = `
       {
@@ -19,6 +20,7 @@ class GitHubClient {
     };
     return this._post(body);
   }
+
   async _post(body = {}) {
     const req = await fetch(this.url, {
       method: "POST",
