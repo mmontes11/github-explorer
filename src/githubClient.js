@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 class GitHubClient {
   constructor() {
     this.url = "https://api.github.com/graphql";
