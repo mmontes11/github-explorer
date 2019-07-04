@@ -4,12 +4,20 @@ class GitHubClient {
     this.authorization = `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`;
   }
 
-  getOrganization(organization) {
+  getOrganization(organization, numRepos = 5) {
     const GET_ORGANIZATION = `
       {
         organization(login: ${organization}) {
           name
           url
+          repositories(first: ${numRepos}) {
+            edges {
+              node {
+                name
+                url
+              }
+            }
+          }
         }
       }
     `;

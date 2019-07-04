@@ -1,14 +1,16 @@
 import React from "react";
 import githubClient from "./githubClient";
 import { useOrganization } from "./organization";
+import ErrorHandler from "./ErrorHandler";
+import Organization from "./Organization.jsx";
 import "./App.css";
 
 const App = () => {
   const [
-    { input: orgInput, result: orgResult, error: orgError },
+    { input: orgInput, result: orgResult, errors: orgErrors },
     setOrgInput,
     setOrgResult,
-    setOrgError,
+    setOrgErrors,
   ] = useOrganization();
   const onChange = ({ target: { value } }) => {
     setOrgInput(value);
@@ -18,9 +20,9 @@ const App = () => {
     try {
       const { organization } = await githubClient.getOrganization(orgInput);
       setOrgResult(organization);
-      setOrgError(null);
+      setOrgErrors(null);
     } catch (errors) {
-      setOrgError(new Error("Not found"));
+      setOrgErrors(errors);
       setOrgResult(null);
     }
   };
@@ -31,12 +33,8 @@ const App = () => {
         <input type="text" placeholder="Organization" onChange={onChange} value={orgInput} className="search-input" />
         <button type="submit">Search</button>
       </form>
-      {orgError && <h4 className="error">{orgError.message}</h4>}
-      {orgResult && (
-        <a href={orgResult.url} target="blank">
-          <h4>{orgResult.name}</h4>
-        </a>
-      )}
+      {orgErrors && orgErrors.length > 0 && <ErrorHandler errors={orgErrors} />}
+      {orgResult && <Organization organization={orgResult} />}
     </>
   );
 };

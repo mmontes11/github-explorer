@@ -2,7 +2,7 @@ import { useReducer } from "react";
 
 const SET_INPUT = "SET_INPUT";
 const SET_RESULT = "SET_RESULT";
-const SET_ERROR = "SET_ERROR";
+const SET_ERRORS = "SET_ERRORS";
 
 const setInput = input => ({
   type: SET_INPUT,
@@ -14,25 +14,25 @@ const setResult = result => ({
   result,
 });
 
-const setError = error => ({
-  type: SET_ERROR,
-  error,
+const setErrors = errors => ({
+  type: SET_ERRORS,
+  errors,
 });
 
 const initialState = {
   input: "",
   result: null,
-  error: null,
+  erros: null,
 };
 
-const reducer = (state, { type, input, result, error }) => {
+const reducer = (state, { type, input, result, errors }) => {
   switch (type) {
     case SET_INPUT:
       return { ...state, input };
     case SET_RESULT:
       return { ...state, result };
-    case SET_ERROR:
-      return { ...state, error };
+    case SET_ERRORS:
+      return { ...state, errors };
     default:
       return initialState;
   }
@@ -44,6 +44,6 @@ export const useOrganization = () => {
     state,
     input => dispatch(setInput(input)),
     result => dispatch(setResult(result)),
-    error => dispatch(setError(error)),
+    errors => dispatch(setErrors(errors)),
   ];
 };
