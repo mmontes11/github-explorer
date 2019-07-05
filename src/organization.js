@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 
 const SET_INPUT = "SET_INPUT";
-const SET_RESULT = "SET_RESULT";
+const SET_ORGANIZATION = "SET_ORGANIZATION";
 const SET_ERRORS = "SET_ERRORS";
 
 const setInput = input => ({
@@ -9,9 +9,9 @@ const setInput = input => ({
   input,
 });
 
-const setResult = result => ({
-  type: SET_RESULT,
-  result,
+const setOrganization = organization => ({
+  type: SET_ORGANIZATION,
+  organization,
 });
 
 const setErrors = errors => ({
@@ -21,16 +21,45 @@ const setErrors = errors => ({
 
 const initialState = {
   input: "",
-  result: null,
+  organization: null,
   erros: null,
 };
 
-const reducer = (state, { type, input, result, errors }) => {
+const newRepositoriesState = (oldRepos, newRepos) => {
+  if (!oldRepos) {
+    return newRepos;
+  }
+  const { edges: oldEdges } = oldRepos;
+  const { edges: newEdges } = newRepos;
+  return {
+    ...oldRepos,
+    ...newRepos,
+    edges: [...oldEdges, ...newEdges],
+  };
+};
+
+const reducer = (state, { type, input, organization, errors }) => {
   switch (type) {
     case SET_INPUT:
       return { ...state, input };
-    case SET_RESULT:
-      return { ...state, result };
+    case SET_ORGANIZATION: {
+      if (!organization) {
+        return {
+          ...state,
+          organization: null,
+        };
+      }
+      const reposFromState = state.organization && state.organization.repositories;
+      const repositories = newRepositoriesState(reposFromState, organization.repositories);
+      return {
+        ...state,
+        organization: {
+          ...state.organization,
+          ...organization,
+          repositories,
+        },
+      };
+    }
     case SET_ERRORS:
       return { ...state, errors };
     default:
@@ -43,7 +72,7 @@ export const useOrganization = () => {
   return [
     state,
     input => dispatch(setInput(input)),
-    result => dispatch(setResult(result)),
+    organization => dispatch(setOrganization(organization)),
     errors => dispatch(setErrors(errors)),
   ];
 };

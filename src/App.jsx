@@ -6,35 +6,34 @@ import Organization from "./Organization.jsx";
 import "./App.css";
 
 const App = () => {
-  const [
-    { input: orgInput, result: orgResult, errors: orgErrors },
-    setOrgInput,
-    setOrgResult,
-    setOrgErrors,
-  ] = useOrganization();
+  const [{ input, organization, errors }, setInput, setOrganization, setErrors] = useOrganization();
+  const fetchOrganization = async (organizationName, cursor) => {
+    try {
+      const { organization: newOrganization } = await githubClient.getOrganization(organizationName, cursor);
+      setOrganization(newOrganization);
+      setErrors(null);
+    } catch (newErrors) {
+      setErrors(newErrors);
+      setOrganization(null);
+    }
+  };
   const onChange = ({ target: { value } }) => {
-    setOrgInput(value);
+    setInput(value);
   };
   const onSubmit = async event => {
     event.preventDefault();
-    try {
-      const { organization } = await githubClient.getOrganization(orgInput);
-      setOrgResult(organization);
-      setOrgErrors(null);
-    } catch (errors) {
-      setOrgErrors(errors);
-      setOrgResult(null);
-    }
+    setOrganization(null);
+    fetchOrganization(input);
   };
   return (
     <>
       <h2>GitHub Explorer</h2>
       <form onSubmit={onSubmit}>
-        <input type="text" placeholder="Organization" onChange={onChange} value={orgInput} className="search-input" />
+        <input type="text" placeholder="Organization" onChange={onChange} value={input} className="search-input" />
         <button type="submit">Search</button>
       </form>
-      {orgErrors && orgErrors.length > 0 && <ErrorHandler errors={orgErrors} />}
-      {orgResult && <Organization organization={orgResult} />}
+      {errors && errors.length > 0 && <ErrorHandler errors={errors} />}
+      {organization && <Organization organization={organization} onFetchOrzanization={fetchOrganization} />}
     </>
   );
 };

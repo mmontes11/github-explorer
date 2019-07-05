@@ -1,35 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Repositories from "./Repositories";
 
-const Organization = ({
-  organization: {
-    name,
-    url,
-    description,
-    repositories: { edges: repos },
-  },
-}) => (
+const Organization = ({ organization: { name, url, description, repositories }, onFetchOrzanization }) => (
   <>
     <a href={url} target="blank">
       <h4>{name}</h4>
     </a>
     <p>{description}</p>
-    {repos.length > 0 && (
-      <ul>
-        {repos.map(({ node: { name: repoName, url: repoUrl } }) => (
-          <li key={repoName}>
-            <a href={repoUrl} target="blank">
-              {repoName}
-            </a>
-          </li>
-        ))}
-      </ul>
+    {repositories && (
+      <Repositories organization={name} repositories={repositories} onFetchRepositories={onFetchOrzanization} />
     )}
   </>
 );
 
 Organization.propTypes = {
   organization: PropTypes.shape({}).isRequired,
+  onFetchOrzanization: PropTypes.func.isRequired,
 };
 
 export default Organization;
