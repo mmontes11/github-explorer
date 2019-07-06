@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Repository from "./Repository";
 import "./Repositories.css";
 
 const Repositories = ({
@@ -10,24 +11,21 @@ const Repositories = ({
     pageInfo: { endCursor, hasNextPage },
   },
   onFetchRepositories,
+  onToggleStarRepository,
 }) => (
   <>
-    <ul>
-      {edges.map(({ node: { id, name, url } }) => (
-        <li key={id}>
-          <a href={url} target="blank">
-            {name}
-          </a>
-        </li>
-      ))}
-    </ul>
+    {edges.map(({ node }) => (
+      <Repository key={node.id} repository={node} onToggleStarRepository={onToggleStarRepository} />
+    ))}
     <div className="footer">
       <span>
         {edges.length} / {totalCount}
       </span>
       {hasNextPage && (
-        <button type="button" onClick={() => onFetchRepositories(organization, endCursor)}>
-          More
+        <button type="button" className="more-button" onClick={() => onFetchRepositories(organization, endCursor)}>
+          <span role="img" aria-label="More">
+            ➕
+          </span>
         </button>
       )}
     </div>
@@ -38,6 +36,7 @@ Repositories.propTypes = {
   organization: PropTypes.string.isRequired,
   repositories: PropTypes.shape({}).isRequired,
   onFetchRepositories: PropTypes.func.isRequired,
+  onToggleStarRepository: PropTypes.func.isRequired,
 };
 
 export default Repositories;

@@ -2,6 +2,7 @@ import { useReducer } from "react";
 
 const SET_INPUT = "SET_INPUT";
 const SET_ORGANIZATION = "SET_ORGANIZATION";
+const SET_REPO_STARRED = "SET_REPO_STARRED";
 const SET_ERRORS = "SET_ERRORS";
 
 const setInput = input => ({
@@ -12,6 +13,12 @@ const setInput = input => ({
 const setOrganization = organization => ({
   type: SET_ORGANIZATION,
   organization,
+});
+
+const setRepoStarred = (repositoryId, starred) => ({
+  type: SET_REPO_STARRED,
+  repositoryId,
+  starred,
 });
 
 const setErrors = errors => ({
@@ -38,7 +45,27 @@ const newRepositoriesState = (oldRepos, newRepos) => {
   };
 };
 
-const reducer = (state, { type, input, organization, errors }) => {
+const updateRepository = (repositories, repositoryId, newFields = {}) => {
+  const newEdges = repositories.edges.map(repo => {
+    const { node } = repo;
+    if (repositoryId === node.id) {
+      return {
+        ...repo,
+        node: {
+          ...node,
+          ...newFields,
+        },
+      };
+    }
+    return repo;
+  });
+  return {
+    ...repositories,
+    edges: newEdges,
+  };
+};
+
+const reducer = (state, { type, input, organization, repositoryId, starred, errors }) => {
   switch (type) {
     case SET_INPUT:
       return { ...state, input };
@@ -60,6 +87,21 @@ const reducer = (state, { type, input, organization, errors }) => {
         },
       };
     }
+    case SET_REPO_STARRED: {
+      if (!repositoryId || !starred) {
+        return state;
+      }
+      const { repositories: repositoriesFromState } = state.organization;
+      const { starrable } = starred;
+      const repositories = updateRepository(repositoriesFromState, repositoryId, starrable);
+      return {
+        ...state,
+        organization: {
+          ...state.organization,
+          repositories,
+        },
+      };
+    }
     case SET_ERRORS:
       return { ...state, errors };
     default:
@@ -73,6 +115,7 @@ export const useOrganization = () => {
     state,
     input => dispatch(setInput(input)),
     organization => dispatch(setOrganization(organization)),
+    (repositoryId, starred) => dispatch(setRepoStarred(repositoryId, starred)),
     errors => dispatch(setErrors(errors)),
   ];
 };

@@ -1,0 +1,15 @@
+.repository {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.repository-name-stars{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.start-button {
+  margin-left: 10px;
+}

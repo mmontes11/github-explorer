@@ -1,3 +1,7 @@
-.footer > * {
-  margin-right: 10px;
+.footer {
+  margin-top: 20px;
+}
+
+.more-button {
+  margin-left: 10px;
 }

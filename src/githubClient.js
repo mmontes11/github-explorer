@@ -18,6 +18,10 @@ class GitHubClient {
                 id
                 name
                 url
+                viewerHasStarred
+                stargazers {
+                  totalCount
+                }
               }
             }
             totalCount
@@ -35,6 +39,50 @@ class GitHubClient {
         organization,
         numRepos: NUM_REPOS,
         cursor,
+      },
+    };
+    return this._post(body);
+  }
+
+  addStarToRepository(repositoryId) {
+    const ADD_STAR = `
+      mutation ($repositoryId: ID!){
+        addStar(input: { starrableId: $repositoryId }) {
+          starrable {
+            viewerHasStarred
+            stargazers {
+              totalCount
+            }
+          }
+        }
+      }
+    `;
+    const body = {
+      query: ADD_STAR,
+      variables: {
+        repositoryId,
+      },
+    };
+    return this._post(body);
+  }
+
+  removeStarFromRepository(repositoryId) {
+    const REMOVE_STAR = `
+      mutation ($repositoryId: ID!){
+        removeStar(input: { starrableId: $repositoryId }) {
+          starrable {
+            viewerHasStarred
+            stargazers {
+              totalCount
+            }
+          }
+        }
+      }
+    `;
+    const body = {
+      query: REMOVE_STAR,
+      variables: {
+        repositoryId,
       },
     };
     return this._post(body);

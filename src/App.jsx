@@ -6,11 +6,23 @@ import Organization from "./Organization.jsx";
 import "./App.css";
 
 const App = () => {
-  const [{ input, organization, errors }, setInput, setOrganization, setErrors] = useOrganization();
+  const [{ input, organization, errors }, setInput, setOrganization, setRepoStarred, setErrors] = useOrganization();
   const fetchOrganization = async (organizationName, cursor) => {
     try {
       const { organization: newOrganization } = await githubClient.getOrganization(organizationName, cursor);
       setOrganization(newOrganization);
+      setErrors(null);
+    } catch (newErrors) {
+      setErrors(newErrors);
+      setOrganization(null);
+    }
+  };
+  const toggleStarRepository = async (repositoryId, viewerHasStarred) => {
+    try {
+      const starred = viewerHasStarred
+        ? (await githubClient.removeStarFromRepository(repositoryId)).removeStar
+        : (await githubClient.addStarToRepository(repositoryId)).addStar;
+      setRepoStarred(repositoryId, starred);
       setErrors(null);
     } catch (newErrors) {
       setErrors(newErrors);
@@ -33,7 +45,13 @@ const App = () => {
         <button type="submit">Search</button>
       </form>
       {errors && errors.length > 0 && <ErrorHandler errors={errors} />}
-      {organization && <Organization organization={organization} onFetchOrzanization={fetchOrganization} />}
+      {organization && (
+        <Organization
+          organization={organization}
+          onFetchOrzanization={fetchOrganization}
+          onToggleStarRepository={toggleStarRepository}
+        />
+      )}
     </>
   );
 };
