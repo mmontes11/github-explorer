@@ -1,7 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
-import 'dotenv/config';
+import { ApolloProvider } from "react-apollo";
+import client from "./apollo"
+import "./index.css";
+import "dotenv/config";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
+  document.getElementById("root"),
+);

@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 
 const SET_INPUT = "SET_INPUT";
+const SET_SEARCH = "SET_SEARCH";
 const SET_ORGANIZATION = "SET_ORGANIZATION";
 const SET_REPO_STARRED = "SET_REPO_STARRED";
 const SET_ERRORS = "SET_ERRORS";
@@ -8,6 +9,11 @@ const SET_ERRORS = "SET_ERRORS";
 const setInput = input => ({
   type: SET_INPUT,
   input,
+});
+
+const setSearch = search => ({
+  type: SET_SEARCH,
+  search,
 });
 
 const setOrganization = organization => ({
@@ -28,6 +34,7 @@ const setErrors = errors => ({
 
 const initialState = {
   input: "",
+  search: null,
   organization: null,
   erros: null,
 };
@@ -65,10 +72,12 @@ const updateRepository = (repositories, repositoryId, newFields = {}) => {
   };
 };
 
-const reducer = (state, { type, input, organization, repositoryId, starred, errors }) => {
+const reducer = (state, { type, input, search, organization, repositoryId, starred, errors }) => {
   switch (type) {
     case SET_INPUT:
       return { ...state, input };
+    case SET_SEARCH:
+      return { ...state, search };
     case SET_ORGANIZATION: {
       if (!organization) {
         return {
@@ -114,6 +123,7 @@ export const useOrganization = () => {
   return [
     state,
     input => dispatch(setInput(input)),
+    search => dispatch(setSearch(search)),
     organization => dispatch(setOrganization(organization)),
     (repositoryId, starred) => dispatch(setRepoStarred(repositoryId, starred)),
     errors => dispatch(setErrors(errors)),
