@@ -16,9 +16,15 @@
   "author": "Martin Montes",
   "license": "MIT",
   "dependencies": {
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-client": "^2.6.3",
+    "apollo-link-http": "^1.5.15",
     "dotenv": "^8.0.0",
+    "graphql": "^14.4.2",
+    "graphql-tag": "^2.10.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-apollo": "^2.5.8",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
   },
