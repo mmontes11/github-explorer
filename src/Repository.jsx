@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
-import { ADD_STAR, REMOVE_STAR } from "./apollo";
+import { ADD_STAR, REMOVE_STAR, addStarUpdate, removeStarUpdate } from "./apollo";
 import "./Repository.css";
 
 const Repository = ({
@@ -20,7 +20,11 @@ const Repository = ({
       </a>
       <span>{`${totalStars} ✨`}</span>
     </div>
-    <Mutation mutation={viewerHasStarred ? REMOVE_STAR : ADD_STAR} variables={{ id }}>
+    <Mutation
+      mutation={viewerHasStarred ? REMOVE_STAR : ADD_STAR}
+      variables={{ id }}
+      update={viewerHasStarred ? removeStarUpdate : addStarUpdate}
+    >
       {(mutation, { loading }) => (
         <button type="button" className="start-button" onClick={() => mutation(id)} disabled={loading}>
           {viewerHasStarred ? "⭐ Unstar" : "⭐ Star"}
