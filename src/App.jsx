@@ -8,7 +8,7 @@ import { GET_ORGANIZATION } from "./apollo";
 import "./App.css";
 
 const App = () => {
-  const [{ input, search }, setInput, setSearch] = useOrganization();
+  const [{ input, search }, setInput, setSearch, resetSearch] = useOrganization();
   const onChange = ({ target: { value } }) => {
     setInput(value);
   };
@@ -19,24 +19,33 @@ const App = () => {
   return (
     <>
       <h2>GitHub Explorer</h2>
-      <form onSubmit={onSubmit}>
+      <form className="search-form" onSubmit={onSubmit}>
         <input type="text" placeholder="Organization" onChange={onChange} value={input} className="search-input" />
-        <button type="submit">Search</button>
+        <button type="submit">
+          <span role="img" aria-label="Search">
+            🔍
+          </span>
+        </button>
+        <button type="button" onClick={() => resetSearch()}>
+          <span role="img" aria-label="Reset">
+            ❌
+          </span>
+        </button>
       </form>
       {search && (
-        <Query query={GET_ORGANIZATION} variables={{ organization: search }}>
+        <Query query={GET_ORGANIZATION} variables={{ organization: search }} notifyOnNetworkStatusChange>
           {({ data, loading, error, fetchMore }) => {
             if (error) {
               return <ErrorHandler error={error} />;
             }
-            if (loading) {
+            const { organization } = data;
+            if (loading && !organization) {
               return <Loader />;
             }
-            const { organization } = data;
             if (!organization) {
               return null;
             }
-            return <Organization organization={organization} onFetchOrganization={fetchMore} />;
+            return <Organization organization={organization} loading={loading} onFetchOrganization={fetchMore} />;
           }}
         </Query>
       )}
