@@ -11,11 +11,10 @@ const Repositories = ({
     pageInfo: { endCursor, hasNextPage },
   },
   onFetchRepositories,
-  onToggleStarRepository,
 }) => (
   <>
     {edges.map(({ node }) => (
-      <Repository key={node.id} repository={node} onToggleStarRepository={onToggleStarRepository} />
+      <Repository key={node.id} repository={node} />
     ))}
     <div className="footer">
       <span>
@@ -41,7 +40,6 @@ const Repositories = ({
 Repositories.propTypes = {
   repositories: PropTypes.shape({}).isRequired,
   onFetchRepositories: PropTypes.func.isRequired,
-  onToggleStarRepository: PropTypes.func.isRequired,
 };
 
 export default Repositories;

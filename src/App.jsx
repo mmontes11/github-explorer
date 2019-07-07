@@ -1,43 +1,14 @@
 import React from "react";
+import { Query } from "react-apollo";
 import { useOrganization } from "./organization";
 import ErrorHandler from "./Error";
 import Loader from "./Loader";
 import Organization from "./Organization.jsx";
-import { Query } from "react-apollo";
 import { GET_ORGANIZATION } from "./apollo";
 import "./App.css";
 
 const App = () => {
-  const [
-    { input, search, organization, errors },
-    setInput,
-    setSearch,
-    setOrganization,
-    setRepoStarred,
-    setErrors,
-  ] = useOrganization();
-  // const fetchOrganization = async (organizationName, cursor) => {
-  //   try {
-  //     const { organization: newOrganization } = await githubClient.getOrganization(organizationName, cursor);
-  //     setOrganization(newOrganization);
-  //     setErrors(null);
-  //   } catch (newErrors) {
-  //     setErrors(newErrors);
-  //     setOrganization(null);
-  //   }
-  // };
-  // const toggleStarRepository = async (repositoryId, viewerHasStarred) => {
-  //   try {
-  //     const starred = viewerHasStarred
-  //       ? (await githubClient.removeStarFromRepository(repositoryId)).removeStar
-  //       : (await githubClient.addStarToRepository(repositoryId)).addStar;
-  //     setRepoStarred(repositoryId, starred);
-  //     setErrors(null);
-  //   } catch (newErrors) {
-  //     setErrors(newErrors);
-  //     setOrganization(null);
-  //   }
-  // };
+  const [{ input, search }, setInput, setSearch] = useOrganization();
   const onChange = ({ target: { value } }) => {
     setInput(value);
   };
@@ -65,13 +36,7 @@ const App = () => {
             if (!organization) {
               return null;
             }
-            return (
-              <Organization
-                organization={organization}
-                onFetchOrganization={fetchMore}
-                onToggleStarRepository={() => undefined}
-              />
-            );
+            return <Organization organization={organization} onFetchOrganization={fetchMore} />;
           }}
         </Query>
       )}

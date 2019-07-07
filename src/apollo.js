@@ -36,9 +36,10 @@ export const GET_ORGANIZATION = gql`
 `;
 
 export const ADD_STAR = gql`
-  mutation($repositoryId: ID!) {
-    addStar(input: { starrableId: $repositoryId }) {
+  mutation($id: ID!) {
+    addStar(input: { starrableId: $id }) {
       starrable {
+        id
         viewerHasStarred
         stargazers {
           totalCount
@@ -49,9 +50,10 @@ export const ADD_STAR = gql`
 `;
 
 export const REMOVE_STAR = gql`
-  mutation($repositoryId: ID!) {
-    removeStar(input: { starrableId: $repositoryId }) {
+  mutation($id: ID!) {
+    removeStar(input: { starrableId: $id }) {
       starrable {
+        id
         viewerHasStarred
         stargazers {
           totalCount

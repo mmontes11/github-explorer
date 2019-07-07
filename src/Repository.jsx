@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Mutation } from "react-apollo";
+import { ADD_STAR, REMOVE_STAR } from "./apollo";
 import "./Repository.css";
 
 const Repository = ({
@@ -10,7 +12,6 @@ const Repository = ({
     viewerHasStarred,
     stargazers: { totalCount: totalStars },
   },
-  onToggleStarRepository,
 }) => (
   <div className="repository">
     <div className="repository-name-stars">
@@ -19,15 +20,18 @@ const Repository = ({
       </a>
       <span>{`${totalStars} ✨`}</span>
     </div>
-    <button type="button" className="start-button" onClick={() => onToggleStarRepository(id, viewerHasStarred)}>
-      {viewerHasStarred ? "⭐ Unstar" : "⭐ Star"}
-    </button>
+    <Mutation mutation={viewerHasStarred ? REMOVE_STAR : ADD_STAR} variables={{ id }}>
+      {(mutation, { loading }) => (
+        <button type="button" className="start-button" onClick={() => mutation(id)} disabled={loading}>
+          {viewerHasStarred ? "⭐ Unstar" : "⭐ Star"}
+        </button>
+      )}
+    </Mutation>
   </div>
 );
 
 Repository.propTypes = {
   repository: PropTypes.shape({}).isRequired,
-  onToggleStarRepository: PropTypes.func.isRequired,
 };
 
 export default Repository;
