@@ -27,6 +27,7 @@ export const GET_ORGANIZATION = gql`
       repositories(
         first: ${NUM_REPOS}, 
         after: $cursor
+        orderBy: { field: PUSHED_AT, direction: DESC }
       ) {
         edges {
           node {
