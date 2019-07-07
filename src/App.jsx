@@ -1,9 +1,9 @@
 import React from "react";
 import { Query } from "react-apollo";
-import { useOrganization } from "./organization";
+import { useOrganization } from "./useOrganization";
 import ErrorHandler from "./Error";
 import Loader from "./Loader";
-import Organization from "./Organization.jsx";
+import Organization from "./Organization";
 import { GET_ORGANIZATION } from "./apollo";
 import "./App.css";
 

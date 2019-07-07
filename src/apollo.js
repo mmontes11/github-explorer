@@ -81,7 +81,28 @@ export const repositoriesUpdateQuery = (previousResult, { fetchMoreResult }) => 
   };
 };
 
-const toggleStarUpdate = (payloadProp, viewerHasStarred, updateTotalCount) => (
+const toggleStarOptimisticResponse = (payloadProp, id, viewerHasStarred, totalCount) => ({
+  [payloadProp]: {
+    __typename: "Mutation",
+    starrable: {
+      __typename: "Repository",
+      id,
+      viewerHasStarred,
+      stargazers: {
+        __typename: "StargazerConnection",
+        totalCount,
+      },
+    },
+  },
+});
+
+export const addStarOptimisticResponse = (id, totalCount) =>
+  toggleStarOptimisticResponse(ADD_STAR_PAYLOAD_PROP, id, true, totalCount);
+
+export const removeStarOptimisticResponse = (id, totalCount) =>
+  toggleStarOptimisticResponse(REMOVE_STAR_PAYLOAD_PROP, id, false, totalCount);
+
+const toggleStarUpdate = (payloadProp, viewerHasStarred) => (
   client,
   {
     data: {
@@ -95,24 +116,19 @@ const toggleStarUpdate = (payloadProp, viewerHasStarred, updateTotalCount) => (
     id: `Repository:${id}`,
     fragment: REPOSITORY_FRAGMENT,
   });
-  const totalCount = updateTotalCount(repository.stargazers.totalCount);
   client.writeFragment({
     id: `Repository:${id}`,
     fragment: REPOSITORY_FRAGMENT,
     data: {
       ...repository,
       viewerHasStarred,
-      stargazers: {
-        ...repository.stargazers,
-        totalCount,
-      },
     },
   });
 };
 
-export const addStarUpdate = toggleStarUpdate(ADD_STAR_PAYLOAD_PROP, true, total => total + 1);
+export const addStarUpdate = toggleStarUpdate(ADD_STAR_PAYLOAD_PROP, true);
 
-export const removeStarUpdate = toggleStarUpdate(REMOVE_STAR_PAYLOAD_PROP, false, total => total - 1);
+export const removeStarUpdate = toggleStarUpdate(REMOVE_STAR_PAYLOAD_PROP, false);
 
 const GITHUB_BASE_URL = "https://api.github.com/graphql";
 const authorization = `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`;
