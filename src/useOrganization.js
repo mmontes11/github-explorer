@@ -2,7 +2,7 @@ import { useReducer } from "react";
 
 const SET_INPUT = "SET_INPUT";
 const SET_SEARCH = "SET_SEARCH";
-const RESET_SEARCH = "RESET_SEARCH";
+const RESET = "RESET";
 
 const setInput = input => ({
   type: SET_INPUT,
@@ -14,8 +14,8 @@ const setSearch = search => ({
   search,
 });
 
-const resetSearch = () => ({
-  type: RESET_SEARCH,
+const reset = () => ({
+  type: RESET,
 });
 
 const initialState = {
@@ -29,8 +29,8 @@ const reducer = (state, { type, input, search }) => {
       return { ...state, input };
     case SET_SEARCH:
       return { ...state, search };
-    case RESET_SEARCH:
-      return { ...state, search: null };
+    case RESET:
+      return initialState
     default:
       return initialState;
   }
@@ -42,6 +42,6 @@ export const useOrganization = () => {
     state,
     input => dispatch(setInput(input)),
     search => dispatch(setSearch(search)),
-    () => dispatch(resetSearch()),
+    () => dispatch(reset()),
   ];
 };

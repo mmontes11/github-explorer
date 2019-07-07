@@ -8,7 +8,7 @@ import { GET_ORGANIZATION } from "./apollo";
 import "./App.css";
 
 const App = () => {
-  const [{ input, search }, setInput, setSearch, resetSearch] = useOrganization();
+  const [{ input, search }, setInput, setSearch, reset] = useOrganization();
   const onChange = ({ target: { value } }) => {
     setInput(value);
   };
@@ -26,7 +26,7 @@ const App = () => {
             🔍
           </span>
         </button>
-        <button type="button" onClick={() => resetSearch()}>
+        <button type="button" onClick={() => reset()}>
           <span role="img" aria-label="Reset">
             ❌
           </span>
