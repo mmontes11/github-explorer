@@ -8,7 +8,7 @@ import { GET_ORGANIZATION } from "./apollo";
 import "./App.css";
 
 const App = () => {
-  const [{ input, search }, setInput, setSearch, reset] = useOrganization();
+  const [{ input, search }, { setInput, setSearch, reset }] = useOrganization();
   const onChange = ({ target: { value } }) => {
     setInput(value);
   };
@@ -20,7 +20,7 @@ const App = () => {
     <>
       <h2>GitHub Explorer</h2>
       <form className="search-form" onSubmit={onSubmit}>
-        <input type="text" placeholder="Organization" onChange={onChange} value={input} className="search-input" />
+        <input type="text" placeholder="Organization" onChange={onChange} value={input} />
         <button type="submit">
           <span role="img" aria-label="Search">
             🔍

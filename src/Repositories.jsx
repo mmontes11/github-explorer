@@ -26,7 +26,6 @@ const Repositories = ({
       {!loading && hasNextPage && (
         <button
           type="button"
-          className="more-button"
           onClick={() =>
             onFetchRepositories({ variables: { cursor: endCursor }, updateQuery: repositoriesUpdateQuery })
           }

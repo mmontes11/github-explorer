@@ -4,12 +4,12 @@
   align-items: center;
 }
 
-.repository-name-stars{
+.repository > button {
+  margin-left: 10px;
+}
+
+.repository-name-stars {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.start-button {
-  margin-left: 10px;
 }

@@ -30,7 +30,7 @@ const reducer = (state, { type, input, search }) => {
     case SET_SEARCH:
       return { ...state, search };
     case RESET:
-      return initialState
+      return initialState;
     default:
       return initialState;
   }
@@ -40,8 +40,10 @@ export const useOrganization = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return [
     state,
-    input => dispatch(setInput(input)),
-    search => dispatch(setSearch(search)),
-    () => dispatch(reset()),
+    {
+      setInput: input => dispatch(setInput(input)),
+      setSearch: search => dispatch(setSearch(search)),
+      reset: () => dispatch(reset()),
+    },
   ];
 };

@@ -38,7 +38,7 @@ const Repository = ({
       update={viewerHasStarred ? removeStarUpdate : addStarUpdate}
     >
       {mutation => (
-        <button type="button" className="start-button" onClick={() => mutation(id)}>
+        <button type="button" onClick={() => mutation(id)}>
           {viewerHasStarred ? "⭐ Unstar" : "⭐ Star"}
         </button>
       )}
