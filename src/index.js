@@ -1,12 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { ApolloProvider } from "react-apollo";
+import { render } from "react-dom";
+import { ApolloProvider } from "@apollo/react-hooks";
 import App from "./App";
 import client from "./apollo";
 import "./index.css";
 import "dotenv/config";
 
-ReactDOM.render(
+render(
   <ApolloProvider client={client}>
     <App />
   </ApolloProvider>,

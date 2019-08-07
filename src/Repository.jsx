@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Mutation } from "react-apollo";
+import { useMutation } from "@apollo/react-hooks";
 import {
   ADD_STAR,
   REMOVE_STAR,
@@ -19,32 +19,27 @@ const Repository = ({
     viewerHasStarred,
     stargazers: { totalCount: totalStars },
   },
-}) => (
-  <div className="repository">
-    <div className="repository-name-stars">
-      <a href={url} target="blank">
-        {name}
-      </a>
-      <span>{`${totalStars} ✨`}</span>
+}) => {
+  const document = viewerHasStarred ? REMOVE_STAR : ADD_STAR;
+  const optimisticResponse = viewerHasStarred
+    ? removeStarOptimisticResponse(id, totalStars - 1)
+    : addStarOptimisticResponse(id, totalStars + 1);
+  const update = viewerHasStarred ? removeStarUpdate : addStarUpdate;
+  const [mutation] = useMutation(document, { variables: { id }, optimisticResponse, update });
+  return (
+    <div className="repository">
+      <div className="repository-name-stars">
+        <a href={url} target="blank">
+          {name}
+        </a>
+        <span>{`${totalStars} ✨`}</span>
+      </div>
+      <button type="button" onClick={() => mutation(id)}>
+        {viewerHasStarred ? "⭐ Unstar" : "⭐ Star"}
+      </button>
     </div>
-    <Mutation
-      mutation={viewerHasStarred ? REMOVE_STAR : ADD_STAR}
-      variables={{ id }}
-      optimisticResponse={
-        viewerHasStarred
-          ? removeStarOptimisticResponse(id, totalStars - 1)
-          : addStarOptimisticResponse(id, totalStars + 1)
-      }
-      update={viewerHasStarred ? removeStarUpdate : addStarUpdate}
-    >
-      {mutation => (
-        <button type="button" onClick={() => mutation(id)}>
-          {viewerHasStarred ? "⭐ Unstar" : "⭐ Star"}
-        </button>
-      )}
-    </Mutation>
-  </div>
-);
+  );
+};
 
 Repository.propTypes = {
   repository: PropTypes.shape({}).isRequired,

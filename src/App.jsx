@@ -1,11 +1,25 @@
 import React from "react";
-import { Query } from "react-apollo";
+import { useQuery } from "@apollo/react-hooks";
 import { useOrganization } from "./useOrganization";
 import ErrorHandler from "./Error";
 import Loader from "./Loader";
 import Organization from "./Organization";
 import { GET_ORGANIZATION } from "./apollo";
 import "./App.css";
+
+const renderResult = (data, loading, error, fetchMore) => {
+  if (error) {
+    return <ErrorHandler error={error} />;
+  }
+  const { organization } = data;
+  if (loading && !organization) {
+    return <Loader />;
+  }
+  if (!organization) {
+    return null;
+  }
+  return <Organization organization={organization} loading={loading} onFetchOrganization={fetchMore} />;
+};
 
 const App = () => {
   const [{ input, search }, { setInput, setSearch, reset }] = useOrganization();
@@ -16,6 +30,10 @@ const App = () => {
     event.preventDefault();
     setSearch(input);
   };
+  const { data, loading, error, fetchMore } = useQuery(GET_ORGANIZATION, {
+    variables: { organization: search },
+    notifyOnNetworkStatusChange: true,
+  });
   return (
     <>
       <h2>GitHub Explorer</h2>
@@ -32,23 +50,7 @@ const App = () => {
           </span>
         </button>
       </form>
-      {search && (
-        <Query query={GET_ORGANIZATION} variables={{ organization: search }} notifyOnNetworkStatusChange>
-          {({ data, loading, error, fetchMore }) => {
-            if (error) {
-              return <ErrorHandler error={error} />;
-            }
-            const { organization } = data;
-            if (loading && !organization) {
-              return <Loader />;
-            }
-            if (!organization) {
-              return null;
-            }
-            return <Organization organization={organization} loading={loading} onFetchOrganization={fetchMore} />;
-          }}
-        </Query>
-      )}
+      {search && renderResult(data, loading, error, fetchMore)}
     </>
   );
 };
