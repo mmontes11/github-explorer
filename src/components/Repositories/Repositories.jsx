@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Repository from "./Repository";
-import Loader from "./Loader";
-import { repositoriesUpdateQuery } from "./apollo";
+import Repository from "../Repository/Repository";
+import Loader from "../Loader/Loader";
+import { repositoriesUpdateQuery } from "../../graphql/apollo";
 import "./Repositories.css";
 
 const Repositories = ({

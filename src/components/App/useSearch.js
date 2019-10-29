@@ -36,7 +36,7 @@ const reducer = (state, { type, input, search }) => {
   }
 };
 
-export const useOrganization = () => {
+export const useSearch = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return [
     state,

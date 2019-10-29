@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Repositories from "./Repositories";
+import Repositories from "../Repositories/Repositories";
 
 const Organization = ({ organization: { name, url, repositories }, loading, onFetchOrganization }) => (
   <>

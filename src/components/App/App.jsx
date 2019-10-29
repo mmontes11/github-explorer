@@ -1,10 +1,10 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { useOrganization } from "./useOrganization";
-import ErrorHandler from "./Error";
-import Loader from "./Loader";
-import Organization from "./Organization";
-import { GET_ORGANIZATION } from "./apollo";
+import { useSearch } from "./useSearch";
+import ErrorHandler from "../Error/Error";
+import Loader from "../Loader/Loader";
+import Organization from "../Organization/Organization";
+import { GET_ORGANIZATION } from "../../graphql/apollo";
 import "./App.css";
 
 const renderResult = (data, loading, error, fetchMore) => {
@@ -22,7 +22,7 @@ const renderResult = (data, loading, error, fetchMore) => {
 };
 
 const App = () => {
-  const [{ input, search }, { setInput, setSearch, reset }] = useOrganization();
+  const [{ input, search }, { setInput, setSearch, reset }] = useSearch();
   const onChange = ({ target: { value } }) => {
     setInput(value);
   };
