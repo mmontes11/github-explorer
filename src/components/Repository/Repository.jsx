@@ -8,7 +8,7 @@ import {
   removeStarOptimisticResponse,
   addStarUpdate,
   removeStarUpdate,
-} from "../../graphql/apollo";
+} from "./graphql";
 import "./Repository.css";
 
 const Repository = ({

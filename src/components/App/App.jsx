@@ -4,7 +4,7 @@ import { useSearch } from "./useSearch";
 import ErrorHandler from "../Error/Error";
 import Loader from "../Loader/Loader";
 import Organization from "../Organization/Organization";
-import { GET_ORGANIZATION } from "../../graphql/apollo";
+import { GET_ORGANIZATION } from "./graphql";
 import "./App.css";
 
 const renderResult = (data, loading, error, fetchMore) => {
