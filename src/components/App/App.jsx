@@ -3,22 +3,22 @@ import { useQuery } from "@apollo/react-hooks";
 import { useSearch } from "./useSearch";
 import ErrorHandler from "../Error/Error";
 import Loader from "../Loader/Loader";
-import Organization from "../Organization/Organization";
-import { GET_ORGANIZATION } from "./graphql";
+import Repositories from "../Repositories/Repositories";
+import { SEARCH } from "./graphql";
 import "./App.css";
 
 const renderResult = (data, loading, error, fetchMore) => {
   if (error) {
     return <ErrorHandler error={error} />;
   }
-  const { organization } = data;
-  if (loading && !organization) {
+  const { search } = data;
+  if (loading && !search) {
     return <Loader />;
   }
-  if (!organization) {
+  if (!search) {
     return null;
   }
-  return <Organization organization={organization} loading={loading} fetchMore={fetchMore} />;
+  return <Repositories repositories={search} loading={loading} fetchMore={fetchMore} />;
 };
 
 const App = () => {
@@ -30,15 +30,15 @@ const App = () => {
     event.preventDefault();
     setSearch(input);
   };
-  const { data, loading, error, fetchMore } = useQuery(GET_ORGANIZATION, {
-    variables: { organization: search },
+  const { data, loading, error, fetchMore } = useQuery(SEARCH, {
+    variables: { query: search },
     notifyOnNetworkStatusChange: true,
   });
   return (
     <>
       <h2>GitHub Explorer</h2>
       <form className="search-form" onSubmit={onSubmit}>
-        <input type="text" placeholder="Organization" onChange={onChange} value={input} />
+        <input type="text" placeholder="Repositories" onChange={onChange} value={input} />
         <button type="submit">
           <span role="img" aria-label="Search">
             🔍

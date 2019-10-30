@@ -4,13 +4,10 @@ export const repositoriesUpdateQuery = (previousResult, { fetchMoreResult }) => 
   }
   return {
     ...previousResult,
-    organization: {
-      ...previousResult.organization,
-      repositories: {
-        ...previousResult.organization.repositories,
-        ...fetchMoreResult.organization.repositories,
-        edges: [...previousResult.organization.repositories.edges, ...fetchMoreResult.organization.repositories.edges],
-      },
+    search: {
+      ...previousResult.search,
+      ...fetchMoreResult.search,
+      edges: [...previousResult.search.edges, ...fetchMoreResult.search.edges],
     },
   };
 };

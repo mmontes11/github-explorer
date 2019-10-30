@@ -3,26 +3,18 @@ import { REPOSITORY_FRAGMENT } from "../../graphql/fragment";
 
 const NUM_REPOS = 10;
 
-export const GET_ORGANIZATION = gql`
-  query($organization: String!, $cursor: String) {
-    organization(login: $organization) {
-      name
-      url
-      repositories(
-        first: ${NUM_REPOS}, 
-        after: $cursor
-        orderBy: { field: PUSHED_AT, direction: DESC }
-      ) {
-        edges {
-          node {
-            ...repository
-          }
+export const SEARCH = gql`
+  query($query: String!, $cursor: String) {
+    search(query: $query, type: REPOSITORY, after: $cursor, first: ${NUM_REPOS}) {
+      edges {
+        node {
+          ...repository
         }
-        totalCount
-        pageInfo {
-          endCursor
-          hasNextPage
-        }
+      }
+      repositoryCount
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }

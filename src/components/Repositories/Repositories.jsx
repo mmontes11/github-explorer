@@ -8,7 +8,7 @@ import "./Repositories.css";
 const Repositories = ({
   repositories: {
     edges,
-    totalCount,
+    repositoryCount,
     pageInfo: { endCursor, hasNextPage },
   },
   loading,
@@ -21,7 +21,7 @@ const Repositories = ({
     <div className="footer">
       {loading && <Loader />}
       <span>
-        {edges.length} / {totalCount}
+        {edges.length} / {repositoryCount}
       </span>
       {!loading && hasNextPage && (
         <button
