@@ -12,7 +12,7 @@ const Repositories = ({
     pageInfo: { endCursor, hasNextPage },
   },
   loading,
-  onFetchRepositories,
+  fetchMore,
 }) => (
   <>
     {edges.map(({ node }) => (
@@ -26,9 +26,7 @@ const Repositories = ({
       {!loading && hasNextPage && (
         <button
           type="button"
-          onClick={() =>
-            onFetchRepositories({ variables: { cursor: endCursor }, updateQuery: repositoriesUpdateQuery })
-          }
+          onClick={() => fetchMore({ variables: { cursor: endCursor }, updateQuery: repositoriesUpdateQuery })}
         >
           <span role="img" aria-label="More">
             ➕
@@ -42,7 +40,7 @@ const Repositories = ({
 Repositories.propTypes = {
   repositories: PropTypes.shape({}).isRequired,
   loading: PropTypes.bool.isRequired,
-  onFetchRepositories: PropTypes.func.isRequired,
+  fetchMore: PropTypes.func.isRequired,
 };
 
 export default Repositories;

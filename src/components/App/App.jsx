@@ -18,7 +18,7 @@ const renderResult = (data, loading, error, fetchMore) => {
   if (!organization) {
     return null;
   }
-  return <Organization organization={organization} loading={loading} onFetchOrganization={fetchMore} />;
+  return <Organization organization={organization} loading={loading} fetchMore={fetchMore} />;
 };
 
 const App = () => {
