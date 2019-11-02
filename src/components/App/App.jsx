@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
+import { Input } from "semantic-ui-react";
 import { useSearch } from "./useSearch";
 import ErrorHandler from "../Error/Error";
 import Loader from "../Loader/Loader";
@@ -22,7 +23,7 @@ const renderResult = (data, loading, error, fetchMore) => {
 };
 
 const App = () => {
-  const [{ input, search }, { setInput, setSearch, reset }] = useSearch();
+  const [{ input, search }, { setInput, setSearch }] = useSearch();
   const onChange = ({ target: { value } }) => {
     setInput(value);
   };
@@ -38,17 +39,15 @@ const App = () => {
     <>
       <h2>GitHub Explorer</h2>
       <form className="search-form" onSubmit={onSubmit}>
-        <input type="text" placeholder="Repositories" onChange={onChange} value={input} />
-        <button type="submit">
-          <span role="img" aria-label="Search">
-            🔍
-          </span>
-        </button>
-        <button type="button" onClick={() => reset()}>
-          <span role="img" aria-label="Reset">
-            ❌
-          </span>
-        </button>
+        <Input
+          type="text"
+          placeholder="Repositories"
+          size="big"
+          icon="search"
+          loading={loading}
+          onChange={onChange}
+          value={input}
+        />
       </form>
       {search && renderResult(data, loading, error, fetchMore)}
     </>
