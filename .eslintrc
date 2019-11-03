@@ -4,5 +4,12 @@
     "browser": true,
     "jest": true
   },
-  "extends": ["mmontes11-react"]
+  "extends": ["mmontes11-react"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  }
 }

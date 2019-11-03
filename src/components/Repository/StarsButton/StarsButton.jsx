@@ -9,7 +9,7 @@ import {
   removeStarOptimisticResponse,
   addStarUpdate,
   removeStarUpdate,
-} from "./graphql";
+} from "components/Repository/StarsButton/graphql";
 
 const StarsButton = ({ id, viewerHasStarred, totalStars }) => {
   const document = viewerHasStarred ? REMOVE_STAR : ADD_STAR;

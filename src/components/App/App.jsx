@@ -2,11 +2,11 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { Input } from "semantic-ui-react";
 import styled, { createGlobalStyle } from "styled-components";
-import { useSearch } from "./useSearch";
-import ErrorHandler from "../Error/Error";
-import Loader from "../Loader/Loader";
-import Repositories from "../Repositories/Repositories";
-import { SEARCH } from "./graphql";
+import { useSearch } from "components/App/useSearch";
+import { SEARCH } from "components/App/graphql";
+import ErrorHandler from "components/Error/Error";
+import Loader from "components/Loader/Loader";
+import Repositories from "components/Repositories/Repositories";
 
 const GlobalStyle = createGlobalStyle`
   body {

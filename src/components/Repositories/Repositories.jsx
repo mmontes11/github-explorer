@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Repository from "../Repository/Repository";
-import Loader from "../Loader/Loader";
-import { repositoriesUpdateQuery } from "./graphql";
+import { repositoriesUpdateQuery } from "components/Repositories/graphql";
+import Repository from "components/Repository/Repository";
+import Loader from "components/Loader/Loader";
 
 const Repositories = ({
   repositories: {

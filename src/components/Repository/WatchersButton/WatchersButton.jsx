@@ -9,7 +9,7 @@ import {
   subscribeOptimisticResponse,
   unsubscribeOptimisticResponse,
   updateSubscriptionUpdate,
-} from "./graphql";
+} from "components/Repository/WatchersButton/graphql";
 
 const WatchersButton = ({ id, viewerCanSubscribe, viewerSubscription, totalWatchers }) => {
   const isViewerSubscribed = isSubscribed(viewerSubscription);

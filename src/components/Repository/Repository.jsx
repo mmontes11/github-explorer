@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card } from "semantic-ui-react";
 import styled from "styled-components";
-import StarsButton from "./StarsButton/StarsButton";
-import WatchersButton from "./WatchersButton/WatchersButton";
+import StarsButton from "components/Repository/StarsButton/StarsButton";
+import WatchersButton from "components/Repository/WatchersButton/WatchersButton";
 
 const { Content, Header, Meta, Description } = Card;
 
