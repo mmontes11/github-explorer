@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { repositoriesUpdateQuery } from "components/Repositories/graphql";
 import Repository from "components/Repository/Repository";
 import Loader from "components/Loader/Loader";
+import { NUM_REPOS_PER_PAGE } from "constants/pagination";
 
 const Repositories = ({
   repositories: {
@@ -18,7 +19,7 @@ const Repositories = ({
       <Repository key={node.id} repository={node} />
     ))}
     <div className="footer">
-      {loading && <Loader />}
+      {loading && <Loader numPlaceholders={NUM_REPOS_PER_PAGE} />}
       <span>
         {edges.length} / {repositoryCount}
       </span>

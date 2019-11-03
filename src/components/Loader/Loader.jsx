@@ -1,7 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Placeholder as SemanticPlaceholder } from "semantic-ui-react";
 
 const { Header, Line, Paragraph } = SemanticPlaceholder;
+
 const Placeholder = () => (
   <SemanticPlaceholder>
     <Header>
@@ -17,16 +19,22 @@ const Placeholder = () => (
   </SemanticPlaceholder>
 );
 
-const NUM_PLACEHOLDERS = 3;
-const getPlaceholders = () => {
+const getPlaceholders = numPlaceholders => {
   const placeholders = [];
-  for (let i = 0; i < NUM_PLACEHOLDERS; i += 1) {
+  for (let i = 0; i < numPlaceholders; i += 1) {
     placeholders.push(<Placeholder key={i} />);
   }
   return placeholders;
 };
-const placeholders = getPlaceholders();
 
-const Loader = () => <>{placeholders}</>;
+const Loader = ({ numPlaceholders }) => <>{getPlaceholders(numPlaceholders)}</>;
+
+Loader.propTypes = {
+  numPlaceholders: PropTypes.number,
+};
+
+Loader.defaultProps = {
+  numPlaceholders: 3,
+};
 
 export default Loader;

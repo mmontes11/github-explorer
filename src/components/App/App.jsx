@@ -7,6 +7,7 @@ import { SEARCH } from "components/App/graphql";
 import ErrorHandler from "components/Error/Error";
 import Loader from "components/Loader/Loader";
 import Repositories from "components/Repositories/Repositories";
+import { NUM_REPOS_PER_PAGE } from "constants/pagination";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -24,7 +25,7 @@ const renderResult = (data, loading, error, fetchMore) => {
   }
   const { search } = data;
   if (loading && !search) {
-    return <Loader />;
+    return <Loader numPlaceholders={NUM_REPOS_PER_PAGE} />;
   }
   if (!search) {
     return null;
