@@ -6,8 +6,17 @@ export const REPOSITORY_FRAGMENT = gql`
     name
     description
     url
+    owner {
+      login
+      url
+    }
     viewerHasStarred
     stargazers {
+      totalCount
+    }
+    viewerCanSubscribe
+    viewerSubscription
+    watchers {
       totalCount
     }
   }

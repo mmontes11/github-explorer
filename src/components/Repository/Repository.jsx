@@ -1,45 +1,53 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useMutation } from "@apollo/react-hooks";
-import {
-  ADD_STAR,
-  REMOVE_STAR,
-  addStarOptimisticResponse,
-  removeStarOptimisticResponse,
-  addStarUpdate,
-  removeStarUpdate,
-} from "./graphql";
+import { Card } from "semantic-ui-react";
+import StarsButton from "./StarsButton/StarsButton";
+import WatchersButton from "./WatchersButton/WatchersButton";
 import "./Repository.css";
+
+const { Content, Header, Meta, Description } = Card;
 
 const Repository = ({
   repository: {
     id,
     name,
+    description,
     url,
+    owner: { login, url: repositoryOwnerUrl },
     viewerHasStarred,
     stargazers: { totalCount: totalStars },
+    viewerCanSubscribe,
+    viewerSubscription,
+    watchers: { totalCount: totalWatchers },
   },
-}) => {
-  const document = viewerHasStarred ? REMOVE_STAR : ADD_STAR;
-  const optimisticResponse = viewerHasStarred
-    ? removeStarOptimisticResponse(id, totalStars - 1)
-    : addStarOptimisticResponse(id, totalStars + 1);
-  const update = viewerHasStarred ? removeStarUpdate : addStarUpdate;
-  const [mutation] = useMutation(document, { variables: { id }, optimisticResponse, update });
-  return (
-    <div className="repository">
-      <div className="repository-name-stars">
+}) => (
+  <Card>
+    <Content>
+      <Header>
         <a href={url} target="blank">
           {name}
         </a>
-        <span>{`${totalStars} ✨`}</span>
+      </Header>
+      <Meta>
+        <a href={repositoryOwnerUrl} target="blank">
+          {login}
+        </a>
+      </Meta>
+      <Description>{description}</Description>
+    </Content>
+    <Content extra>
+      <div className="ui two">
+        <StarsButton id={id} viewerHasStarred={viewerHasStarred} totalStars={totalStars} />
+        <WatchersButton
+          id={id}
+          viewerCanSubscribe={viewerCanSubscribe}
+          viewerSubscription={viewerSubscription}
+          totalWatchers={totalWatchers}
+        />
       </div>
-      <button type="button" onClick={() => mutation(id)}>
-        {viewerHasStarred ? "⭐ Unstar" : "⭐ Star"}
-      </button>
-    </div>
-  );
-};
+    </Content>
+  </Card>
+);
 
 Repository.propTypes = {
   repository: PropTypes.shape({}).isRequired,

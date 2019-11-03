@@ -22,7 +22,7 @@ const NUM_PLACEHOLDERS = 3;
 const getPlaceholders = () => {
   const placeholders = [];
   for (let i = 0; i < NUM_PLACEHOLDERS; i += 1) {
-    placeholders.push(<Placeholder />);
+    placeholders.push(<Placeholder key={i} />);
   }
   return placeholders;
 };
