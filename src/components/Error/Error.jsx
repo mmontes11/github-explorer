@@ -1,8 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Error.css";
+import { Message } from "semantic-ui-react";
 
-const Error = ({ error }) => <h4 className="error">{error.toString()}</h4>;
+const { Header } = Message;
+
+const Error = ({ error }) => (
+  <Message negative>
+    <Header>{error.toString()}</Header>
+  </Message>
+);
 
 Error.propTypes = {
   error: PropTypes.shape({}).isRequired,

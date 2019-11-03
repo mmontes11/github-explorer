@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Repository from "../Repository/Repository";
 import Loader from "../Loader/Loader";
 import { repositoriesUpdateQuery } from "./graphql";
-import "./Repositories.css";
 
 const Repositories = ({
   repositories: {

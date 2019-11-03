@@ -1,11 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Card } from "semantic-ui-react";
+import styled from "styled-components";
 import StarsButton from "./StarsButton/StarsButton";
 import WatchersButton from "./WatchersButton/WatchersButton";
-import "./Repository.css";
 
 const { Content, Header, Meta, Description } = Card;
+
+const ActionsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+`;
 
 const Repository = ({
   repository: {
@@ -36,7 +42,7 @@ const Repository = ({
       <Description>{description}</Description>
     </Content>
     <Content extra>
-      <div className="ui two">
+      <ActionsContainer>
         <StarsButton id={id} viewerHasStarred={viewerHasStarred} totalStars={totalStars} />
         <WatchersButton
           id={id}
@@ -44,7 +50,7 @@ const Repository = ({
           viewerSubscription={viewerSubscription}
           totalWatchers={totalWatchers}
         />
-      </div>
+      </ActionsContainer>
     </Content>
   </Card>
 );

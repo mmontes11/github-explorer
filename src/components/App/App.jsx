@@ -1,12 +1,22 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { Input } from "semantic-ui-react";
+import styled, { createGlobalStyle } from "styled-components";
 import { useSearch } from "./useSearch";
 import ErrorHandler from "../Error/Error";
 import Loader from "../Loader/Loader";
 import Repositories from "../Repositories/Repositories";
 import { SEARCH } from "./graphql";
-import "./App.css";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 30px;
+  }
+`;
+
+const SearchForm = styled.form`
+  margin-bottom: 20px;
+`;
 
 const renderResult = (data, loading, error, fetchMore) => {
   if (error) {
@@ -37,8 +47,9 @@ const App = () => {
   });
   return (
     <>
+      <GlobalStyle />
       <h2>GitHub Explorer</h2>
-      <form className="search-form" onSubmit={onSubmit}>
+      <SearchForm onSubmit={onSubmit}>
         <Input
           type="text"
           placeholder="Repositories"
@@ -48,7 +59,7 @@ const App = () => {
           onChange={onChange}
           value={input}
         />
-      </form>
+      </SearchForm>
       {search && renderResult(data, loading, error, fetchMore)}
     </>
   );

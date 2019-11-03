@@ -1,6 +1,5 @@
 import React from "react";
 import { Placeholder as SemanticPlaceholder } from "semantic-ui-react";
-import "./Loader.css";
 
 const { Header, Line, Paragraph } = SemanticPlaceholder;
 const Placeholder = () => (

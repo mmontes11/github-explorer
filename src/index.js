@@ -5,7 +5,6 @@ import "dotenv/config";
 import "semantic-ui-css/semantic.min.css";
 import App from "./components/App/App";
 import client from "./graphql/apollo";
-import "./index.css";
 
 render(
   <ApolloProvider client={client}>
