@@ -1,5 +1,6 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
+import Navbar from "components/Navbar/Navbar";
 import Search from "components/Search/Search";
 
 const GlobalStyle = createGlobalStyle`
@@ -11,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
 const App = () => (
   <>
     <GlobalStyle />
-    <h2>GitHub Explorer</h2>
+    <Navbar />
     <Search />
   </>
 );

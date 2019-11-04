@@ -1,13 +1,17 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { Input } from "semantic-ui-react";
+import { Container, Input } from "semantic-ui-react";
 import styled from "styled-components";
 import { useSearch } from "components/Search/useSearch";
 import { SEARCH } from "components/Search/graphql";
 import SearchResults from "components/Search/SearchResults/SearchResults";
 
+const SearchContainer = styled(Container)`
+  margin-top: 7em;
+`;
+
 const SearchForm = styled.form`
-  margin-bottom: 20px;
+  margin-bottom: 3em;
 `;
 
 const Search = () => {
@@ -24,7 +28,7 @@ const Search = () => {
     notifyOnNetworkStatusChange: true,
   });
   return (
-    <>
+    <SearchContainer>
       <SearchForm onSubmit={onSubmit}>
         <Input
           type="text"
@@ -37,7 +41,7 @@ const Search = () => {
         />
       </SearchForm>
       {search && <SearchResults data={data} loading={loading} error={error} fetchMore={fetchMore} />}
-    </>
+    </SearchContainer>
   );
 };
 
