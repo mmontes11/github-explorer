@@ -40,7 +40,7 @@ const Search = () => {
           value={input}
         />
       </SearchForm>
-      {search && <SearchResults data={data} loading={loading} error={error} fetchMore={fetchMore} />}
+      {data && <SearchResults data={data} loading={loading} error={error} fetchMore={fetchMore} />}
     </SearchContainer>
   );
 };

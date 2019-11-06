@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import ErrorHandler from "components/Error/Error";
 import Loader from "components/Loader/Loader";
 import Repositories from "components/Repositories/Repositories";
+import ResultsPager from "components/Search/ResultsPager/ResultsPager";
+import { repositoriesUpdateQuery } from "components/Repositories/graphql";
 import { NUM_REPOS_PER_PAGE } from "constants/pagination";
 
 const SearchResult = ({ data, loading, error, fetchMore }) => {
@@ -11,22 +13,37 @@ const SearchResult = ({ data, loading, error, fetchMore }) => {
   }
   const { search } = data;
   if (loading && !search) {
-    return <Loader numPlaceholders={NUM_REPOS_PER_PAGE} />;
+    return search ? null : <Loader numPlaceholders={NUM_REPOS_PER_PAGE} />;
   }
-  if (!search) {
-    return null;
-  }
-  return <Repositories repositories={search} loading={loading} fetchMore={fetchMore} />;
+  const {
+    edges,
+    repositoryCount,
+    pageInfo: { endCursor, hasNextPage },
+  } = search;
+  return (
+    <>
+      <Repositories repositories={edges} />
+      {loading && <Loader numPlaceholders={NUM_REPOS_PER_PAGE} />}
+      <ResultsPager
+        progress={edges.length}
+        total={repositoryCount}
+        loading={loading}
+        hasNextPage={hasNextPage}
+        onFetchMore={() => fetchMore({ variables: { cursor: endCursor }, updateQuery: repositoriesUpdateQuery })}
+      />
+    </>
+  );
 };
 
 SearchResult.propTypes = {
-  data: PropTypes.shape({}).isRequired,
+  data: PropTypes.shape({}),
   loading: PropTypes.bool.isRequired,
   error: PropTypes.shape({}),
   fetchMore: PropTypes.func.isRequired,
 };
 
 SearchResult.defaultProps = {
+  data: null,
   error: null,
 };
 
