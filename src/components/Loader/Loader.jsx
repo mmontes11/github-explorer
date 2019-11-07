@@ -3,7 +3,14 @@ import PropTypes from "prop-types";
 import { Placeholder as SemanticPlaceholder } from "semantic-ui-react";
 import styled from "styled-components";
 
-const { Header, Line, Paragraph } = SemanticPlaceholder;
+const { Paragraph, Header, Line } = SemanticPlaceholder;
+
+const StyledPlaceholder = styled(SemanticPlaceholder)`
+  && > :before,
+  && .image.header:after {
+    background-color: whitesmoke;
+  }
+`;
 
 const StyledLine = styled(Line)`
   &&& {
@@ -11,15 +18,9 @@ const StyledLine = styled(Line)`
   }
 `;
 
-const StyledPlaceholder = styled(SemanticPlaceholder)`
-  && > :before {
-    background-color: whitesmoke;
-  }
-`;
-
 const Placeholder = () => (
   <StyledPlaceholder>
-    <Header>
+    <Header image>
       <StyledLine />
       <StyledLine />
     </Header>
@@ -47,7 +48,7 @@ Loader.propTypes = {
 };
 
 Loader.defaultProps = {
-  numPlaceholders: 3,
+  numPlaceholders: 1,
 };
 
 export default Loader;

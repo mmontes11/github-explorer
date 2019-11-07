@@ -5,7 +5,7 @@ import Loader from "components/Loader/Loader";
 import Repositories from "components/Repositories/Repositories";
 import Pager from "components/Pager/Pager";
 import { repositoriesUpdateQuery } from "components/Repositories/graphql";
-import { NUM_REPOS_PER_PAGE } from "constants/pagination";
+import { NUM_ITEMS_PER_PAGE } from "constants/index";
 
 const SearchResult = ({ data, loading, error, fetchMore }) => {
   if (error) {
@@ -13,7 +13,7 @@ const SearchResult = ({ data, loading, error, fetchMore }) => {
   }
   const { search } = data;
   if (loading && !search) {
-    return search ? null : <Loader numPlaceholders={NUM_REPOS_PER_PAGE} />;
+    return search ? null : <Loader numPlaceholders={NUM_ITEMS_PER_PAGE} />;
   }
   const {
     edges,
@@ -23,7 +23,7 @@ const SearchResult = ({ data, loading, error, fetchMore }) => {
   return (
     <>
       <Repositories repositories={edges} />
-      {loading && <Loader numPlaceholders={NUM_REPOS_PER_PAGE} />}
+      {loading && <Loader numPlaceholders={NUM_ITEMS_PER_PAGE} />}
       <Pager
         progress={edges.length}
         total={repositoryCount}

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card } from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
 import styled from "styled-components";
 import StarsButton from "components/Repository/StarsButton/StarsButton";
 import WatchersButton from "components/Repository/WatchersButton/WatchersButton";
@@ -19,7 +19,7 @@ const Repository = ({
     name,
     description,
     url,
-    owner: { login, url: repositoryOwnerUrl },
+    owner: { login, url: repositoryOwnerUrl, avatarUrl },
     viewerHasStarred,
     stargazers: { totalCount: totalStars },
     viewerCanSubscribe,
@@ -29,6 +29,7 @@ const Repository = ({
 }) => (
   <Card>
     <Content>
+      <Image floated="left" size="mini" src={avatarUrl} />
       <Header>
         <a href={url} target="blank">
           {name}
