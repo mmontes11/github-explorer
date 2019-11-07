@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ErrorHandler from "components/Error/Error";
 import Loader from "components/Loader/Loader";
 import Repositories from "components/Repositories/Repositories";
-import ResultsPager from "components/Search/ResultsPager/ResultsPager";
+import Pager from "components/Pager/Pager";
 import { repositoriesUpdateQuery } from "components/Repositories/graphql";
 import { NUM_REPOS_PER_PAGE } from "constants/pagination";
 
@@ -24,7 +24,7 @@ const SearchResult = ({ data, loading, error, fetchMore }) => {
     <>
       <Repositories repositories={edges} />
       {loading && <Loader numPlaceholders={NUM_REPOS_PER_PAGE} />}
-      <ResultsPager
+      <Pager
         progress={edges.length}
         total={repositoryCount}
         loading={loading}
