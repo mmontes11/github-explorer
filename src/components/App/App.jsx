@@ -6,6 +6,7 @@ import Search from "components/Search/Search";
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 30px;
+    background-color: whitesmoke;
   }
 `;
 

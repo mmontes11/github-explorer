@@ -1,22 +1,35 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Placeholder as SemanticPlaceholder } from "semantic-ui-react";
+import styled from "styled-components";
 
 const { Header, Line, Paragraph } = SemanticPlaceholder;
 
+const StyledLine = styled(Line)`
+  &&& {
+    background-color: whitesmoke;
+  }
+`;
+
+const StyledPlaceholder = styled(SemanticPlaceholder)`
+  && > :before {
+    background-color: whitesmoke;
+  }
+`;
+
 const Placeholder = () => (
-  <SemanticPlaceholder>
+  <StyledPlaceholder>
     <Header>
-      <Line />
-      <Line />
+      <StyledLine />
+      <StyledLine />
     </Header>
     <Paragraph>
-      <Line />
-      <Line />
-      <Line />
-      <Line />
+      <StyledLine />
+      <StyledLine />
+      <StyledLine />
+      <StyledLine />
     </Paragraph>
-  </SemanticPlaceholder>
+  </StyledPlaceholder>
 );
 
 const getPlaceholders = numPlaceholders => {
