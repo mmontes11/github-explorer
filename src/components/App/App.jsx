@@ -1,5 +1,6 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+import { Container } from "semantic-ui-react";
 import Navbar from "components/Navbar/Navbar";
 import Search from "components/Search/Search";
 
@@ -9,11 +10,18 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const Content = styled(Container)`
+  margin-top: 7em;
+  margin-bottom: 3em;
+`;
+
 const App = () => (
   <>
     <GlobalStyle />
     <Navbar />
-    <Search />
+    <Content>
+      <Search />
+    </Content>
   </>
 );
 
