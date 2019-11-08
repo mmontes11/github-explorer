@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Card, Image } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
@@ -54,8 +54,9 @@ const Repository = ({
     optimisticResponse: starrableOR,
     update: starrableUpdate,
   });
+  const onStar = useCallback(() => starrableMutation(id), [starrableMutation, id]);
 
-  const isViewerSubscribed = isSubscribed(viewerSubscription);
+  const isViewerSubscribed = useMemo(() => isSubscribed(viewerSubscription), [viewerSubscription]);
   const newTotalWatchers = isViewerSubscribed ? totalWatchers - 1 : totalWatchers + 1;
   const suscribableOperation = isViewerSubscribed ? UNSUBSCRIBE : SUBSCRIBE;
   const suscribableOR = isViewerSubscribed
@@ -67,6 +68,7 @@ const Repository = ({
     optimisticResponse: suscribableOR,
     update: suscribableUpdate,
   });
+  const onWatch = useCallback(() => suscribableMutation(id), [suscribableMutation, id]);
 
   return (
     <Card>
@@ -86,16 +88,12 @@ const Repository = ({
       </Content>
       <Content extra>
         <ActionsContainer>
-          <StarsButton
-            viewerHasStarred={viewerHasStarred}
-            totalStars={totalStars}
-            onStar={() => starrableMutation(id)}
-          />
+          <StarsButton viewerHasStarred={viewerHasStarred} totalStars={totalStars} onStar={onStar} />
           <WatchersButton
             isViewerSubscribed={isViewerSubscribed}
             viewerCanSubscribe={viewerCanSubscribe}
             totalWatchers={totalWatchers}
-            onWatch={() => suscribableMutation(id)}
+            onWatch={onWatch}
           />
         </ActionsContainer>
       </Content>

@@ -7,9 +7,7 @@ import SearchResults from "components/Search/SearchResults/SearchResults";
 
 const Search = () => {
   const [{ input, search }, { setInput, setSearch }] = useSearch();
-  const onChange = ({ target: { value } }) => {
-    setInput(value);
-  };
+  const onChange = useCallback(({ target: { value } }) => setInput(value), [setInput]);
   const onSubmit = useCallback(
     async event => {
       event.preventDefault();

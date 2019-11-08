@@ -1,20 +1,20 @@
-import { useReducer } from "react";
+import { useReducer, useCallback } from "react";
 
 const SET_INPUT = "SET_INPUT";
 const SET_SEARCH = "SET_SEARCH";
 const RESET = "RESET";
 
-const setInput = input => ({
+const setInputAction = input => ({
   type: SET_INPUT,
   input,
 });
 
-const setSearch = search => ({
+const setSearchAction = search => ({
   type: SET_SEARCH,
   search,
 });
 
-const reset = () => ({
+const resetAction = () => ({
   type: RESET,
 });
 
@@ -38,12 +38,15 @@ const reducer = (state, { type, input, search }) => {
 
 export const useSearch = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const setInput = useCallback(input => dispatch(setInputAction(input)), [dispatch]);
+  const setSearch = useCallback(search => dispatch(setSearchAction(search)), [dispatch]);
+  const reset = useCallback(() => dispatch(resetAction), [dispatch]);
   return [
     state,
     {
-      setInput: input => dispatch(setInput(input)),
-      setSearch: search => dispatch(setSearch(search)),
-      reset: () => dispatch(reset()),
+      setInput,
+      setSearch,
+      reset,
     },
   ];
 };
