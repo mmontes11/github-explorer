@@ -1,14 +1,9 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { Input } from "semantic-ui-react";
-import styled from "styled-components";
 import { useSearch } from "components/Search/useSearch";
 import { SEARCH } from "components/Search/graphql";
+import SearchBar from "components/Search/SearchBar/SearchBar";
 import SearchResults from "components/Search/SearchResults/SearchResults";
-
-const SearchForm = styled.form`
-  margin-bottom: 3em;
-`;
 
 const Search = () => {
   const [{ input, search }, { setInput, setSearch }] = useSearch();
@@ -25,17 +20,7 @@ const Search = () => {
   });
   return (
     <>
-      <SearchForm onSubmit={onSubmit}>
-        <Input
-          type="text"
-          placeholder="Repositories"
-          size="big"
-          icon="search"
-          loading={loading}
-          onChange={onChange}
-          value={input}
-        />
-      </SearchForm>
+      <SearchBar input={input} loading={loading} onChange={onChange} onSubmit={onSubmit} />
       {data && <SearchResults data={data} loading={loading} error={error} fetchMore={fetchMore} />}
     </>
   );

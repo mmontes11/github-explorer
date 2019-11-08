@@ -1,11 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Divider, Label, Button } from "semantic-ui-react";
+import { Label, Button } from "semantic-ui-react";
+import Divider from "components/ui/Divider/Divider";
 import styled from "styled-components";
-
-const Container = styled.div`
-  margin-top: 3em;
-`;
 
 const PagesContainer = styled.div`
   display: flex;
@@ -27,7 +24,7 @@ const StyledButton = styled(Button)`
 `;
 
 const Pager = ({ progress, total, loading, hasNextPage, onFetchMore }) => (
-  <Container>
+  <>
     <Divider />
     <PagesContainer>
       <StyledLabel>
@@ -35,7 +32,7 @@ const Pager = ({ progress, total, loading, hasNextPage, onFetchMore }) => (
       </StyledLabel>
       {hasNextPage && <StyledButton circular loading={loading} icon="plus" onClick={() => onFetchMore()} />}
     </PagesContainer>
-  </Container>
+  </>
 );
 
 Pager.propTypes = {

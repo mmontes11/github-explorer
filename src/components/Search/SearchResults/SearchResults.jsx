@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ErrorHandler from "components/Error/Error";
-import Loader from "components/Loader/Loader";
+import ErrorHandler from "components/ui/Error/Error";
+import Loader from "components/ui/Loader/Loader";
 import Repositories from "components/Repositories/Repositories";
-import Pager from "components/Pager/Pager";
+import Pager from "components/ui/Pager/Pager";
 import { repositoriesUpdateQuery } from "components/Repositories/graphql";
 import { NUM_ITEMS_PER_PAGE } from "constants/index";
 
