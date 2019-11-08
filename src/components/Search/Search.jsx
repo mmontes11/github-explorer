@@ -22,7 +22,7 @@ const Search = () => {
   return (
     <>
       <SearchBar input={input} loading={loading} onChange={onChange} onSubmit={onSubmit} />
-      {data && (
+      {(data || (search && loading)) && (
         <SearchResults
           data={data}
           loading={loading}

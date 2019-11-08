@@ -24,7 +24,7 @@ const SearchResults = ({ data, loading, error, onFetchMore }) => {
   if (error) {
     return <ErrorHandler error={error} />;
   }
-  if (edges.length === 0) {
+  if (!loading && edges.length === 0) {
     return <ErrorHandler error={new Error("No results found")} icon="search" />;
   }
   if (loading && !search) {
@@ -38,13 +38,15 @@ const SearchResults = ({ data, loading, error, onFetchMore }) => {
         ))}
         {loading && loaders}
       </ResultsGrid>
-      <Pager
-        progress={edges.length}
-        total={repositoryCount}
-        loading={loading}
-        hasNextPage={hasNextPage}
-        onFetchMore={() => onFetchMore(endCursor)}
-      />
+      {edges.length > 0 && repositoryCount > 0 && (
+        <Pager
+          progress={edges.length}
+          total={repositoryCount}
+          loading={loading}
+          hasNextPage={hasNextPage}
+          onFetchMore={() => onFetchMore(endCursor)}
+        />
+      )}
     </>
   );
 };
@@ -57,7 +59,7 @@ SearchResults.propTypes = {
 };
 
 SearchResults.defaultProps = {
-  data: null,
+  data: {},
   error: null,
 };
 
