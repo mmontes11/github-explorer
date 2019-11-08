@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { REPOSITORY_FRAGMENT } from "../../../graphql/fragment";
+import { REPOSITORY_FRAGMENT } from "graphql/fragment";
 
 const ADD_STAR_PAYLOAD_PROP = "addStar";
 const REMOVE_STAR_PAYLOAD_PROP = "removeStar";

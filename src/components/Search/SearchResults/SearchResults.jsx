@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
+import shortid from "shortid";
 import ErrorHandler from "components/ui/Error/Error";
 import CardLoader from "components/ui/CardLoader/CardLoader";
 import Repository from "components/Repository/Repository";
@@ -7,7 +8,9 @@ import Pager from "components/ui/Pager/Pager";
 import { repositoriesUpdateQuery } from "components/Search/SearchResults/graphql";
 import { NUM_ITEMS_PER_PAGE } from "constants/index";
 
-const loaders = Array(NUM_ITEMS_PER_PAGE).fill(<CardLoader />);
+const loaders = Array(NUM_ITEMS_PER_PAGE)
+  .fill(null)
+  .map(() => <CardLoader key={shortid.generate()} />);
 
 const ResultsGrid = ({ children }) => <div className="ui four doubling stackable cards">{children}</div>;
 

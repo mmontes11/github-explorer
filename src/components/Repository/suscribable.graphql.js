@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { REPOSITORY_FRAGMENT } from "../../../graphql/fragment";
+import { REPOSITORY_FRAGMENT } from "graphql/fragment";
 
 const SUBSCRIBED = "SUBSCRIBED";
 const UNSUBSCRIBED = "UNSUBSCRIBED";
