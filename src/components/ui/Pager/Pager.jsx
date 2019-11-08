@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { Label, Button } from "semantic-ui-react";
 import Divider from "components/ui/Divider/Divider";
@@ -23,17 +23,20 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const Pager = ({ progress, total, loading, hasNextPage, onFetchMore }) => (
-  <>
-    <Divider />
-    <PagesContainer>
-      <StyledLabel>
-        {progress} / {total}
-      </StyledLabel>
-      {hasNextPage && <StyledButton circular loading={loading} icon="plus" onClick={() => onFetchMore()} />}
-    </PagesContainer>
-  </>
-);
+const Pager = ({ progress, total, loading, hasNextPage, onFetchMore }) => {
+  const onLoadNextPage = useCallback(onFetchMore, [progress]);
+  return (
+    <>
+      <Divider />
+      <PagesContainer>
+        <StyledLabel>
+          {progress} / {total}
+        </StyledLabel>
+        {hasNextPage && <StyledButton circular loading={loading} icon="plus" onClick={() => onLoadNextPage()} />}
+      </PagesContainer>
+    </>
+  );
+};
 
 Pager.propTypes = {
   progress: PropTypes.number.isRequired,

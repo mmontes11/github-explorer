@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import ErrorHandler from "components/ui/Error/Error";
 import Loader from "components/ui/Loader/Loader";
@@ -8,18 +8,16 @@ import { repositoriesUpdateQuery } from "components/Repositories/graphql";
 import { NUM_ITEMS_PER_PAGE } from "constants/index";
 
 const SearchResult = ({ data, loading, error, fetchMore }) => {
+  const { search } = data;
+  const { edges = [], repositoryCount = 0, pageInfo = {} } = search || {};
+  const { endCursor, hasNextPage } = pageInfo;
+  const onFetchMore = useCallback(fetchMore, [endCursor]);
   if (error) {
     return <ErrorHandler error={error} />;
   }
-  const { search } = data;
   if (loading && !search) {
-    return search ? null : <Loader numPlaceholders={NUM_ITEMS_PER_PAGE} />;
+    return <Loader numPlaceholders={NUM_ITEMS_PER_PAGE} />;
   }
-  const {
-    edges,
-    repositoryCount,
-    pageInfo: { endCursor, hasNextPage },
-  } = search;
   return (
     <>
       <Repositories repositories={edges} />
@@ -29,7 +27,7 @@ const SearchResult = ({ data, loading, error, fetchMore }) => {
         total={repositoryCount}
         loading={loading}
         hasNextPage={hasNextPage}
-        onFetchMore={() => fetchMore({ variables: { cursor: endCursor }, updateQuery: repositoriesUpdateQuery })}
+        onFetchMore={() => onFetchMore({ variables: { cursor: endCursor }, updateQuery: repositoriesUpdateQuery })}
       />
     </>
   );
