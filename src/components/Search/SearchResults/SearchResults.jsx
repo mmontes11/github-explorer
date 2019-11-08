@@ -1,13 +1,21 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import ErrorHandler from "components/ui/Error/Error";
-import Loader from "components/ui/Loader/Loader";
-import Repositories from "components/Repositories/Repositories";
+import CardLoader from "components/ui/CardLoader/CardLoader";
+import Repository from "components/Repository/Repository";
 import Pager from "components/ui/Pager/Pager";
-import { repositoriesUpdateQuery } from "components/Repositories/graphql";
+import { repositoriesUpdateQuery } from "components/Search/SearchResults/graphql";
 import { NUM_ITEMS_PER_PAGE } from "constants/index";
 
-const SearchResult = ({ data, loading, error, fetchMore }) => {
+const loaders = Array(NUM_ITEMS_PER_PAGE).fill(<CardLoader />);
+
+const ResultsGrid = ({ children }) => <div className="ui four doubling stackable cards">{children}</div>;
+
+ResultsGrid.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+};
+
+const SearchResults = ({ data, loading, error, fetchMore }) => {
   const { search } = data;
   const { edges = [], repositoryCount = 0, pageInfo = {} } = search || {};
   const { endCursor, hasNextPage } = pageInfo;
@@ -16,12 +24,16 @@ const SearchResult = ({ data, loading, error, fetchMore }) => {
     return <ErrorHandler error={error} />;
   }
   if (loading && !search) {
-    return <Loader numPlaceholders={NUM_ITEMS_PER_PAGE} />;
+    return <ResultsGrid>{loaders}</ResultsGrid>;
   }
   return (
     <>
-      <Repositories repositories={edges} />
-      {loading && <Loader numPlaceholders={NUM_ITEMS_PER_PAGE} />}
+      <ResultsGrid>
+        {edges.map(({ node }) => (
+          <Repository key={node.id} repository={node} />
+        ))}
+        {loading && loaders}
+      </ResultsGrid>
       <Pager
         progress={edges.length}
         total={repositoryCount}
@@ -33,16 +45,16 @@ const SearchResult = ({ data, loading, error, fetchMore }) => {
   );
 };
 
-SearchResult.propTypes = {
+SearchResults.propTypes = {
   data: PropTypes.shape({}),
   loading: PropTypes.bool.isRequired,
   error: PropTypes.shape({}),
   fetchMore: PropTypes.func.isRequired,
 };
 
-SearchResult.defaultProps = {
+SearchResults.defaultProps = {
   data: null,
   error: null,
 };
 
-export default SearchResult;
+export default SearchResults;
