@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Input } from "semantic-ui-react";
 import styled from "styled-components";
@@ -11,28 +11,24 @@ const SearchContainer = styled.div`
   align-items: center;
 `;
 
-const SearchBar = ({ input, loading, onChange, onSubmit }) => {
-  const onSearchChange = useCallback(onChange, [input]);
-  const onSearchSubmit = useCallback(onSubmit, [input]);
-  return (
-    <>
-      <SearchContainer>
-        <form onSubmit={onSearchSubmit}>
-          <Input
-            type="text"
-            placeholder="Repositories"
-            size="big"
-            icon="search"
-            loading={loading}
-            onChange={onSearchChange}
-            value={input}
-          />
-        </form>
-      </SearchContainer>
-      <Divider />
-    </>
-  );
-};
+const SearchBar = ({ input, loading, onChange, onSubmit }) => (
+  <>
+    <SearchContainer>
+      <form onSubmit={onSubmit}>
+        <Input
+          type="text"
+          placeholder="Repositories"
+          size="big"
+          icon="search"
+          loading={loading}
+          onChange={onChange}
+          value={input}
+        />
+      </form>
+    </SearchContainer>
+    <Divider />
+  </>
+);
 
 SearchBar.propTypes = {
   input: PropTypes.string,
