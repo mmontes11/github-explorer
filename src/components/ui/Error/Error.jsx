@@ -2,16 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Message } from "semantic-ui-react";
 
-const { Header } = Message;
-
-const Error = ({ error }) => (
-  <Message negative>
-    <Header>{error.toString()}</Header>
-  </Message>
-);
+const Error = ({ error, icon }) => <Message icon={icon} header={error.message} negative />;
 
 Error.propTypes = {
   error: PropTypes.shape({}).isRequired,
+  icon: PropTypes.string,
+};
+
+Error.defaultProps = {
+  icon: "exclamation triangle",
 };
 
 export default Error;

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import shortid from "shortid";
-import Error from "components/ui/Error/Error";
+import ErrorHandler from "components/ui/Error/Error";
 import CardLoader from "components/ui/CardLoader/CardLoader";
 import Repository from "components/Repository/Repository";
 import Pager from "components/ui/Pager/Pager";
@@ -22,7 +22,10 @@ const SearchResults = ({ data, loading, error, onFetchMore }) => {
   const { edges = [], repositoryCount = 0, pageInfo = {} } = search || {};
   const { endCursor, hasNextPage } = pageInfo;
   if (error) {
-    return <Error error={error} />;
+    return <ErrorHandler error={error} />;
+  }
+  if (edges.length === 0) {
+    return <ErrorHandler error={new Error("No results found")} icon="search" />;
   }
   if (loading && !search) {
     return <ResultsGrid>{loaders}</ResultsGrid>;
