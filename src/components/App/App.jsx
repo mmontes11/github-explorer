@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Content = styled(Container)`
-  margin-top: 7em;
+  margin-top: 3em;
   margin-bottom: 3em;
 `;
 
