@@ -17,9 +17,9 @@ ResultsGrid.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 };
 
-const SearchResults = ({ data, loading, error, onFetchMore }) => {
-  const { search } = data;
-  const { edges = [], repositoryCount = 0, pageInfo = {} } = search || {};
+const SearchResults = ({ data, error, loading, isNewSearch, onFetchMore }) => {
+  const { search = {} } = data;
+  const { edges = [], repositoryCount = 0, pageInfo = {} } = search;
   const { endCursor, hasNextPage } = pageInfo;
   if (error) {
     return <ErrorHandler error={error} />;
@@ -27,7 +27,7 @@ const SearchResults = ({ data, loading, error, onFetchMore }) => {
   if (!loading && edges.length === 0) {
     return <ErrorHandler error={new Error("No results found")} icon="search" />;
   }
-  if (loading && !search) {
+  if (loading && isNewSearch) {
     return <ResultsGrid>{loaders}</ResultsGrid>;
   }
   return (
@@ -53,8 +53,9 @@ const SearchResults = ({ data, loading, error, onFetchMore }) => {
 
 SearchResults.propTypes = {
   data: PropTypes.shape({}),
-  loading: PropTypes.bool.isRequired,
   error: PropTypes.shape({}),
+  loading: PropTypes.bool.isRequired,
+  isNewSearch: PropTypes.bool.isRequired,
   onFetchMore: PropTypes.func.isRequired,
 };
 
