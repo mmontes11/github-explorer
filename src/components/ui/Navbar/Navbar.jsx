@@ -12,7 +12,7 @@ const GitHubImage = styled(Image).attrs({ size: "mini", src: github })`
 const Navbar = () => (
   <Menu fixed="top" borderless>
     <Container>
-      <Item as="a" header>
+      <Item as="a" href="/" header>
         <GitHubImage />
         GitHub Explorer
       </Item>
