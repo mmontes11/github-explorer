@@ -30,7 +30,9 @@ const Pager = ({ progress, total, loading, hasNextPage, onFetchMore }) => (
       <StyledLabel>
         {progress} / {total}
       </StyledLabel>
-      {hasNextPage && <StyledButton circular loading={loading} icon="plus" onClick={() => onFetchMore()} />}
+      {hasNextPage && (
+        <StyledButton circular color="teal" loading={loading} icon="plus" onClick={() => onFetchMore()} />
+      )}
     </PagesContainer>
   </>
 );
