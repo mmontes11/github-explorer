@@ -1,9 +1,9 @@
 import React from "react";
-import { Message, Button, Icon, Label, Modal as SemanticModal, Input } from "semantic-ui-react";
+import { Message, Button, Icon, Label } from "semantic-ui-react";
 import styled from "styled-components";
 import { GITHUB_PERSONAL_ACCESS_TOKEN_URL } from "constants/index";
 import { useModal } from "shared/modal";
-import Modal from "shared/modal/Modal";
+import TokenModal from "components/NonAuth/TokenModal/TokenModal";
 
 const MessageContent = styled(Message.Content)`
   display: flex;
@@ -14,23 +14,9 @@ const MessageContent = styled(Message.Content)`
 
 const NonAuth = () => {
   const { modal, actions } = useModal();
-  const { openModal, closeModal } = actions;
   return (
     <>
-      <Modal modal={modal} actions={actions}>
-        <SemanticModal.Header>Provide Token</SemanticModal.Header>
-        <SemanticModal.Content image>
-          <Input placeholder="Personal Access Token" />
-        </SemanticModal.Content>
-        <SemanticModal.Actions>
-          <Button secondary onClick={() => closeModal()}>
-            Cancel
-          </Button>
-          <Button primary onClick={() => closeModal()}>
-            Accept
-          </Button>
-        </SemanticModal.Actions>
-      </Modal>
+      <TokenModal modal={modal} actions={actions} onCancel={() => {}} onAccept={() => {}} />
       <Message color="teal">
         <Message.Header>
           <p>
@@ -46,7 +32,7 @@ const NonAuth = () => {
           <Label>user</Label>
         </Message.Header>
         <MessageContent>
-          <Button color="black" onClick={() => openModal()}>
+          <Button secondary onClick={() => actions.openModal()}>
             <Icon name="github" /> Provide Token
           </Button>
         </MessageContent>

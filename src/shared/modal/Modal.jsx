@@ -5,6 +5,7 @@ import { ModalShape } from "shared/modal";
 
 const defaultModalProps = {
   dimmer: "blurring",
+  closeIcon: true,
 };
 
 const Modal = ({ modal, actions: { closeModal }, children }) => (
