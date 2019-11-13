@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Modal from "shared/modal/Modal";
 import { Button, Modal as SemanticModal, Header, Input, Grid } from "semantic-ui-react";
+import { useAuth } from "shared/auth";
 import { ModalShape } from "shared/modal";
 
 const StyledInput = styled(Input)`
@@ -11,23 +12,32 @@ const StyledInput = styled(Input)`
   }
 `;
 
-const TokenModal = ({ modal, actions, onCancel, onAccept }) => {
+const TokenModal = ({ modal, actions, onAccept }) => {
   const { closeModal } = actions;
+  const { token: authToken, setToken: setAuthToken } = useAuth();
+  const [token, setToken] = useState(authToken || "");
+
+  const accepButtonEnabled = token && token !== "";
+  const resetInput = () => setToken(authToken || "");
+  const onClose = () => resetInput();
+  const onTokenChange = ({ target: { value } }) => setToken(value);
   const onCancelClick = () => {
+    resetInput();
     closeModal();
-    onCancel();
   };
   const onAcceptClick = () => {
-    closeModal();
+    setAuthToken(token);
     onAccept();
+    closeModal();
   };
+
   return (
-    <Modal modal={modal} actions={actions}>
+    <Modal modal={modal} actions={actions} onClose={onClose}>
       <Header icon="github" content="Provide Token" />
       <SemanticModal.Content>
         <Grid stackable columns={2}>
           <Grid.Column>
-            <StyledInput placeholder="Personal Access Token" />
+            <StyledInput placeholder="Personal Access Token" value={token} onChange={onTokenChange} />
           </Grid.Column>
         </Grid>
       </SemanticModal.Content>
@@ -35,7 +45,7 @@ const TokenModal = ({ modal, actions, onCancel, onAccept }) => {
         <Button secondary onClick={onCancelClick}>
           Cancel
         </Button>
-        <Button primary onClick={onAcceptClick}>
+        <Button primary disabled={!accepButtonEnabled} onClick={onAcceptClick}>
           Accept
         </Button>
       </SemanticModal.Actions>
@@ -46,7 +56,6 @@ const TokenModal = ({ modal, actions, onCancel, onAccept }) => {
 TokenModal.propTypes = {
   modal: ModalShape.modal.isRequired,
   actions: ModalShape.actions.isRequired,
-  onCancel: PropTypes.func.isRequired,
   onAccept: PropTypes.func.isRequired,
 };
 
