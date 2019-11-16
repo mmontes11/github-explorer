@@ -24,6 +24,3 @@ yarn-error.log*
 
 # git
 *.orig
-
-# env
-.env
