@@ -14,7 +14,7 @@ const StyledInput = styled(Input)`
 
 const TokenModal = ({ modal, actions, onAccept }) => {
   const { closeModal } = actions;
-  const { token: authToken, setToken: setAuthToken } = useAuth();
+  const { token: authToken } = useAuth();
   const [token, setToken] = useState(authToken || "");
 
   const accepButtonEnabled = token && token !== "";
@@ -26,8 +26,7 @@ const TokenModal = ({ modal, actions, onAccept }) => {
     closeModal();
   };
   const onAcceptClick = () => {
-    setAuthToken(token);
-    onAccept();
+    onAccept(token);
     closeModal();
   };
 

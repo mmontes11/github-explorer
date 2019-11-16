@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { useSearch } from "components/Search/useSearch";
+import { useAuth } from "shared/auth";
 import { SEARCH, repositoriesUpdateQuery } from "components/Search/graphql";
 import SearchBar from "components/Search/SearchBar/SearchBar";
 import SearchResults from "components/Search/SearchResults/SearchResults";
@@ -11,6 +12,10 @@ const Search = () => {
     variables: { query: search },
     notifyOnNetworkStatusChange: true,
   });
+  const { removeToken, isAuthError } = useAuth();
+  if (isAuthError(error)) {
+    removeToken();
+  }
   const onChange = useCallback(({ target: { value } }) => setInput(value), [setInput]);
   const onSubmit = useCallback(
     async event => {

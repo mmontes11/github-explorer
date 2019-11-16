@@ -12,11 +12,18 @@ export const AuthProvider = props => {
     localStorage.setToken(newToken);
     setTokenState(newToken);
   };
+  const removeToken = () => {
+    localStorage.removeToken();
+    setTokenState(null);
+  };
+  const isAuthError = error => error && error.networkError && error.networkError.statusCode === 401;
   const auth = useMemo(
     () => ({
       isAuth: token !== null,
+      isAuthError,
       token,
       setToken,
+      removeToken,
     }),
     [token],
   );
