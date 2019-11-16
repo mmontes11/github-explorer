@@ -1,7 +1,7 @@
 FROM node:12
 
-ARG FRONT_PORT=8080
-ENV FRONT_PORT=${FRONT_PORT}
+ARG PORT=8080
+ENV PORT=${PORT}
 ENV WORKDIR /usr/src/github-explorer
 
 RUN mkdir ${WORKDIR}
@@ -12,4 +12,4 @@ ADD build ${WORKDIR}
 
 RUN npm i -g serve
 
-CMD serve -l ${FRONT_PORT} -s
+CMD serve -l ${PORT} -s
