@@ -4,10 +4,10 @@ import { Button, Icon, Label } from "semantic-ui-react";
 
 const StarsButton = ({ viewerHasStarred, totalStars, onStar }) => (
   <Button as="div" labelPosition="right">
-    <Button color="teal" onClick={() => onStar()}>
+    <Button primary onClick={() => onStar()}>
       <Icon name={viewerHasStarred ? "star" : "star outline"} />
     </Button>
-    <Label as="a" basic color="teal" pointing="left">
+    <Label as="a" basic pointing="left">
       {totalStars}
     </Label>
   </Button>

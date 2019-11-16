@@ -4,10 +4,10 @@ import { Button, Icon, Label } from "semantic-ui-react";
 
 const WatchersButton = ({ isViewerSubscribed, viewerCanSubscribe, totalWatchers, onWatch }) => (
   <Button as="div" labelPosition="right">
-    <Button color="blue" disabled={!viewerCanSubscribe} onClick={() => onWatch()}>
+    <Button color="teal" disabled={!viewerCanSubscribe} onClick={() => onWatch()}>
       <Icon name={isViewerSubscribed ? "eye slash" : "eye"} />
     </Button>
-    <Label as="a" basic color="blue" pointing="left">
+    <Label as="a" basic pointing="left">
       {totalWatchers}
     </Label>
   </Button>
