@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
         - name: github-explorer
-          image: mmontes11/github-explorer:0.2.0
+          image: mmontes11/github-explorer:0.3.0
           imagePullPolicy: Always
           resources:
             limits:
