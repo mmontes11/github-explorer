@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#npm run build
+npm run build
 
 builder=$(jq -r .name package.json)
 version=$(jq -r .version package.json)
