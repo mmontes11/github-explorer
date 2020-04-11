@@ -15,6 +15,6 @@ $ npm start
 ### Production
 
 ```bash
-$ npm run build
-$ docker-compose up -d
+$ ./scrips/build.sh
+$ ./scrips/deploy.sh
 ```
