@@ -1,9 +1,0 @@
-version: "3"
-services:
-  front:
-    build: .
-    container_name: github-explorer
-    env_file: .env
-    ports:
-      - "${PORT}:${PORT}"
-    restart: unless-stopped
