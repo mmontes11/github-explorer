@@ -11,5 +11,5 @@ echo "🏗️  Building ${image}..."
 docker buildx create --name "$builder"
 docker buildx use "$builder"
 docker login
-docker buildx build --platform "$platform" -t "$image" --push .
+docker buildx build --platform "$platform" --build-arg PORT=80 -t "$image" --push .
 docker buildx imagetools inspect "$image"

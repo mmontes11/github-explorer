@@ -1,6 +1,6 @@
 FROM node:12
 
-ARG PORT=8080
+ARG PORT=80
 ENV PORT=${PORT}
 ENV WORKDIR /usr/src/github-explorer
 
