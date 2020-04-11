@@ -10,6 +10,6 @@ image="mmontes11/github-explorer:$version"
 echo "🏗️   Building ${image} ..."
 docker buildx create --name "$builder"
 docker buildx use "$builder"
-docker login
+docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 docker buildx build --platform "$platform" --build-arg PORT=80 -t "$image" --push .
 docker buildx imagetools inspect "$image"
