@@ -12,7 +12,9 @@
     "react-hooks",
     "graphql",
     "apollo",
-    "apollo-hooks"
+    "apollo-hooks",
+    "docker",
+    "kubernetes"
   ],
   "author": "Martin Montes",
   "license": "MIT",
