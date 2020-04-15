@@ -8,15 +8,15 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: front
   namespace: github-explorer
   labels:
     app: github-explorer
-    tier: frontend
+    tier: front
 spec:
   selector:
     app: github-explorer
-    tier: frontend
+    tier: front
   type: NodePort
   ports:
     - port: 80
@@ -25,26 +25,26 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: front
   namespace: github-explorer
   labels:
     app: github-explorer
-    tier: frontend
+    tier: front
 spec:
   selector:
     matchLabels:
       app: github-explorer
-      tier: frontend
+      tier: front
   replicas: 1
   template:
     metadata:
       labels:
         app: github-explorer
-        tier: frontend
+        tier: front
     spec:
       containers:
         - name: github-explorer
-          image: mmontes11/github-explorer:0.3.0
+          image: mmontes11/github-explorer:0.3.1
           imagePullPolicy: Always
           resources:
             limits:
