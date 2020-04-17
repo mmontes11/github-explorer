@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-kubectl apply -f k8s
+kubectl apply -f manifests
