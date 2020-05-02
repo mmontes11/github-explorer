@@ -46,6 +46,9 @@ spec:
           image: mmontes11/github-explorer:0.3.1
           imagePullPolicy: Always
           resources:
+            requests:
+              memory: "32Mi"
+              cpu: "75m"
             limits:
               memory: "64Mi"
               cpu: "125m"
