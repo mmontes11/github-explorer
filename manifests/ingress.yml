@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: github-explorer
+  namespace: github-explorer
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  labels:
+    app: github-explorer
+    tier: reverse-proxy
+spec:
+  rules:
+    - host: github-explorer.mmontes-dev.duckdns.org
+      http:
+        paths:
+          - backend:
+              serviceName: github-explorer
+              servicePort: 80
