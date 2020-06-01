@@ -1,0 +1,32 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: github-explorer
+  namespace: kube-system
+  labels:
+    app: github-explorer
+    tier: reverse-proxy
+spec:
+  type: ExternalName
+  externalName: front.github-explorer
+  ports:
+    - port: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: github-explorer
+  namespace: kube-system
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  labels:
+    app: github-explorer
+    tier: reverse-proxy
+spec:
+  rules:
+    - host: github-explorer.mmontes-dev.duckdns.org
+      http:
+        paths:
+          - backend:
+              serviceName: github-explorer
+              servicePort: 80
