@@ -49,14 +49,3 @@ Selector labels
 app.kubernetes.io/name: {{ include "github-explorer.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
-
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "github-explorer.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "github-explorer.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}

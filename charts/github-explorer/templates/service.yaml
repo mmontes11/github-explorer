@@ -2,14 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "github-explorer.fullname" . }}
-  labels:
-    {{- include "github-explorer.labels" . | nindent 4 }}
+  labels: {{ include "github-explorer.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
-  selector:
-    {{- include "github-explorer.selectorLabels" . | nindent 4 }}
+      
+  selector: {{ include "github-explorer.selectorLabels" . | nindent 4 }}

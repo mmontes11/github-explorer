@@ -8,15 +8,9 @@ React UI for exploring GitHub using Apollo GraphQL.
 
 [https://github-explorer.mmontes-dev.duckdns.org](https://github-explorer.mmontes-dev.duckdns.org)
 
-## Develop
+
+## Install
 
 ```bash
-$ npm start
-```
-
-## Production
-
-```bash
-$ ./scrips/build.sh
-$ ./scrips/deploy.sh
+$ helm install github-explorer ./charts/github-explorer
 ```
