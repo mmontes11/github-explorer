@@ -1,6 +1,6 @@
 {
   "name": "github-explorer",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "React UI for exploring GitHub using Apollo GraphQL",
   "repository": {
     "type": "git",
