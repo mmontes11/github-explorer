@@ -21,6 +21,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: Install
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
       - name: Release
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}

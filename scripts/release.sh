@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-npm run build
-
 project=$(jq -r .name package.json)
 version=$(jq -r .version package.json)
 platform="linux/amd64,linux/arm64"
