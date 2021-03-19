@@ -1,15 +1,4 @@
-FROM node:12
+FROM nginx:1.19.6-alpine
 
-ARG PORT=80
-ENV PORT=${PORT}
-ENV WORKDIR /usr/src/github-explorer
-
-RUN mkdir ${WORKDIR}
-
-WORKDIR ${WORKDIR}
-
-ADD build ${WORKDIR}
-
-RUN npm i -g serve
-
-CMD serve -l ${PORT} -s
+COPY ./config/nginx.conf /etc/nginx/nginx.conf
+COPY ./build /var/www
