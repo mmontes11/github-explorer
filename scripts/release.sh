@@ -2,7 +2,7 @@
 
 project=$(jq -r .name package.json)
 version=$(jq -r .version package.json)
-platform="linux/amd64,linux/arm64"
+platform="linux/amd64,linux/arm64,linux/arm"
 image="$DOCKER_USERNAME/$project:$version"
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
