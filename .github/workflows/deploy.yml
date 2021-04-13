@@ -10,6 +10,9 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        
       - uses: azure/setup-helm@v1
         with:
           version: "v3.5.3"
