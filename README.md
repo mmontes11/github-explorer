@@ -3,6 +3,8 @@
 [![Build](https://github.com/mmontes11/github-explorer/workflows/Build/badge.svg)](https://github.com/mmontes11/github-explorer/actions?query=workflow%3ABuild)
 [![Test](https://github.com/mmontes11/github-explorer/workflows/Test/badge.svg)](https://github.com/mmontes11/github-explorer/actions?query=workflow%3ATest)
 [![Release](https://github.com/mmontes11/github-explorer/workflows/Release/badge.svg)](https://github.com/mmontes11/github-explorer/actions?query=workflow%3ARelease)
+[![Deploy](https://github.com/mmontes11/github-explorer/workflows/Deploy/badge.svg)](https://github.com/mmontes11/github-explorer/actions?query=workflow%3ADeploy)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 React UI for exploring GitHub using Apollo GraphQL.
