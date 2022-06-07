@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - "**"
+  push:
+    branches:
+      - "**"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "12"
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "12"
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "12"
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install
+        run: npm install
+
+      - name: Lint
+        run: npm run test
