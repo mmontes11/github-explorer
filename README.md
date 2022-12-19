@@ -12,7 +12,7 @@ React UI for exploring GitHub using Apollo GraphQL.
 
 ## Demo
 
-[https://github-explorer.mmontes-dev.duckdns.org](https://github-explorer.mmontes-dev.duckdns.org)
+[https://github-explorer.mmontes.duckdns.org](https://github-explorer.mmontes.duckdns.org)
 
 
 ## Install
