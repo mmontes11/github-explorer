@@ -18,6 +18,6 @@ React UI for exploring GitHub using Apollo GraphQL.
 ## Install
 
 ```bash
-$ helm repo add mmontes https://charts.mmontes-dev.duckdns.org
+$ helm repo add mmontes https://charts.mmontes.duckdns.org
 $ helm install github-explorer mmontes/github-explorer
 ```
